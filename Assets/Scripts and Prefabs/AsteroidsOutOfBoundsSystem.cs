@@ -24,7 +24,6 @@ public class AsteroidsOutOfBoundsSystem : SystemBase
         //because we need the data from this component to know where the perimeter of our cube is
         RequireSingletonForUpdate<GameSettingsComponent>();
     }
-    [BurstCompile]
     protected override void OnUpdate()
     {
         //We want to run this as parallel jobs so we need to add "AsParallelWriter" when creating
@@ -48,7 +47,7 @@ public class AsteroidsOutOfBoundsSystem : SystemBase
                 commandBuffer.AddComponent(nativeThreadIndex, entity, new DestroyTag());
                 return;
             }
-        }).ScheduleParallel();
+        }).WithBurst().ScheduleParallel();
         //We add the dependencies to the CommandBuffer that will be playing back these structural changes (adding a DestroyTag)
         m_EndFixedStepSimECB.AddJobHandleForProducer(Dependency);
     }

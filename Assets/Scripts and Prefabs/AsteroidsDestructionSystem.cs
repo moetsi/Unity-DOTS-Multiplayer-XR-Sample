@@ -20,7 +20,6 @@ public class AsteroidsDestructionSystem : SystemBase
         m_EndSimEcb = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
     }
 
-    [BurstCompile]
     protected override void OnUpdate()
     {
         //We add "AsParallelWriter" when we create our command buffer because we want

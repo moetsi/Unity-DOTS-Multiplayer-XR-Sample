@@ -31,7 +31,6 @@ public class AsteroidSpawnSystem : SystemBase
         RequireForUpdate(m_GameSettingsQuery);
     }
     
-    [BurstCompile]
     protected override void OnUpdate()
     {
         //Here we set the prefab we will use
@@ -101,7 +100,7 @@ public class AsteroidSpawnSystem : SystemBase
                 commandBuffer.SetComponent(e, vel);
                 
             }
-        }).Schedule();
+        }).WithBurst().Schedule();
         //This will add our dependency to be played back on the BeginSimulationEntityCommandBuffer
         m_BeginSimECB.AddJobHandleForProducer(Dependency);
     }

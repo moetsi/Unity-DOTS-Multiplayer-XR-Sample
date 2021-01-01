@@ -6,7 +6,6 @@ using Unity.Burst;
 
 public class MovementSystem : SystemBase
 {
-    [BurstCompile]
     protected override void OnUpdate()
     {
         var deltaTime = Time.DeltaTime;
@@ -14,6 +13,6 @@ public class MovementSystem : SystemBase
         .ForEach((ref Translation position, in VelocityComponent velocity) =>
         {
             position.Value.xyz += velocity.Value * deltaTime;
-        }).ScheduleParallel();
+        }).WithBurst().ScheduleParallel();
     }
 }
