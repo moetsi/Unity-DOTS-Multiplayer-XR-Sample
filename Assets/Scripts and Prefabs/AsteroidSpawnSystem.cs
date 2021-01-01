@@ -100,7 +100,7 @@ public class AsteroidSpawnSystem : SystemBase
                 commandBuffer.SetComponent(e, vel);
                 
             }
-        }).WithBurst().Schedule();
+        }).Schedule();
         //This will add our dependency to be played back on the BeginSimulationEntityCommandBuffer
         m_BeginSimECB.AddJobHandleForProducer(Dependency);
     }

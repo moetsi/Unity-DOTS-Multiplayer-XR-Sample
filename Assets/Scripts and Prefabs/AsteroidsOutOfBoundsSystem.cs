@@ -47,7 +47,7 @@ public class AsteroidsOutOfBoundsSystem : SystemBase
                 commandBuffer.AddComponent(nativeThreadIndex, entity, new DestroyTag());
                 return;
             }
-        }).WithBurst().ScheduleParallel();
+        }).ScheduleParallel();
         //We add the dependencies to the CommandBuffer that will be playing back these structural changes (adding a DestroyTag)
         m_EndFixedStepSimECB.AddJobHandleForProducer(Dependency);
     }

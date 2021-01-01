@@ -13,6 +13,6 @@ public class MovementSystem : SystemBase
         .ForEach((ref Translation position, in VelocityComponent velocity) =>
         {
             position.Value.xyz += velocity.Value * deltaTime;
-        }).WithBurst().ScheduleParallel();
+        }).ScheduleParallel();
     }
 }

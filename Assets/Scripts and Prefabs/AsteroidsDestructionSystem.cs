@@ -35,7 +35,7 @@ public class AsteroidsDestructionSystem : SystemBase
         {
             commandBuffer.DestroyEntity(nativeThreadIndex, entity);
 
-        }).WithBurst().ScheduleParallel();
+        }).ScheduleParallel();
 
         //We then add the dependencies of these jobs to the EndSimulationEntityCOmmandBufferSystem
         //that will be playing back the structural changes recorded in this sytem
