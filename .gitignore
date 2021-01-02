@@ -9,7 +9,7 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
-/[Aa]ssets/[Ss]cene[Dd]ependency[Cc]ache/**
+[Ss]cene[Dd]ependency[Cc]ache/*
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
