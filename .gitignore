@@ -10,7 +10,7 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 /[Aa]ssets/[Ss]ceneDependencyCache/
-/[Nn]etCodeGenerated/
+/[Aa]ssets/[Nn]etCodeGenerated/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -20,6 +20,7 @@
 !/[Aa]ssets/**/*.meta
 
 SceneDependencyCache.meta
+NetCodeGenerated.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
