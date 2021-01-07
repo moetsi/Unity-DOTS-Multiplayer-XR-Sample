@@ -7,7 +7,10 @@ using Unity.Transforms;
 using UnityEngine;
 using Unity.Burst;
 using Unity.Physics;
+using Unity.NetCode;
 
+//Asteroid spawning will occur on the server
+[UpdateInGroup(typeof(ServerSimulationSystemGroup))]
 public class AsteroidSpawnSystem : SystemBase
 {
     //This will be our query for Asteroids
@@ -21,6 +24,9 @@ public class AsteroidSpawnSystem : SystemBase
 
     //This will save our Asteroid prefab to be used to spawn Asteroids
     private Entity m_Prefab;
+
+    //This is the query for checking network connections with clients
+    private EntityQuery m_ConnectionGroup;
 
     protected override void OnCreate()
     {
@@ -37,17 +43,34 @@ public class AsteroidSpawnSystem : SystemBase
         //We are using GameObjectConversion to create our GameSettingsComponent so we need to make sure 
         //The conversion process is complete before continuing
         RequireForUpdate(m_GameSettingsQuery);
+
+        //This will be used to check how many connected clients there are
+        //If there are no connected clients the server will not spawn asteroids to save CPU
+        m_ConnectionGroup = GetEntityQuery(ComponentType.ReadWrite<NetworkStreamConnection>());
     }
     
-    [BurstCompile]
     protected override void OnUpdate()
     {
+        //Here we check the amount of connected clients
+        if (m_ConnectionGroup.IsEmptyIgnoreFilter)
+        {
+            // No connected players, just destroy all asteroids to save CPU
+            EntityManager.DestroyEntity(m_AsteroidQuery);
+            return;
+        }
+
         //Here we set the prefab we will use
         if (m_Prefab == Entity.Null)
         {
-            //We grab the converted PrefabCollection Entity's AsteroidAuthoringComponent
-            //and set m_Prefab to its Prefab value
-            m_Prefab = GetSingleton<AsteroidAuthoringComponent>().Prefab;
+            //We must now grab the prefab by going through the the GhostCollection
+            var prefabEntity = GetSingletonEntity<GhostPrefabCollectionComponent>();
+            var prefabs = EntityManager.GetBuffer<GhostPrefabBuffer>(prefabEntity);
+            for (int i = 0; i < prefabs.Length; ++i)
+            {   //We go through all the prefabs in the GhostCollection and search for the AsteroidTag
+                if (EntityManager.HasComponent<AsteroidTag>(prefabs[i].Value))
+                    //We found our Asteroid prefab and we set our variable
+                    m_Prefab = prefabs[i].Value;
+            }
 
             //we must "return" after setting this prefab because if we were to continue into the Job
             //we would run into errors because the variable was JUST set (ECS funny business)

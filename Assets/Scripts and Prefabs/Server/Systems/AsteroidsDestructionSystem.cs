@@ -5,7 +5,11 @@ using Unity.Mathematics;
 using Unity.Jobs;
 using Unity.Transforms;
 using UnityEngine;
+using Unity.NetCode;
 
+//We cannot use [UpdateInGroup(typeof(ServerSimulationSystemGroup))] because we already have a group defined
+//So we specify instead what world the system must run, ServerWorld
+[UpdateInWorld(UpdateInWorld.TargetWorld.Server)]
 //We are going to update LATE once all other systems are complete
 //because we don't want to destroy the Entity before other systems have
 //had a chance to interact with it if they need to
@@ -19,7 +23,7 @@ public class AsteroidsDestructionSystem : SystemBase
         //We grab the EndSimulationEntityCommandBufferSystem to record our structural changes
         m_EndSimEcb = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
     }
-
+    
     protected override void OnUpdate()
     {
         //We add "AsParallelWriter" when we create our command buffer because we want
