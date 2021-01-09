@@ -49,9 +49,7 @@ public class ClientLoadGameSystem : SystemBase
                 bulletVelocity = request.bulletVelocity
             };
 
-            //These update the NCE with NetworkStreamInGame (required to start receiving snapshots) and
-            //PlayerSpawningStateComponent, which we will use when we spawn players
-            commandBuffer.AddComponent(requestSource.SourceConnection, new PlayerSpawningStateComponent());
+            //These update the NCE with NetworkStreamInGame (required to start receiving snapshots)
             commandBuffer.AddComponent(requestSource.SourceConnection, default(NetworkStreamInGame));
             
             //This tells the server "I loaded the level"
