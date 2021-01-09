@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e124aa0484f27403fbe70e5916d7b112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidVelocity: 2
-  playerForce: 10
+  asteroidVelocity: 1
+  playerForce: 50
   bulletVelocity: 20
   numAsteroids: 200
   levelWidth: 40
@@ -205,6 +205,8 @@ MonoBehaviour:
   Ghosts:
   - prefab: {fileID: 4837534721504918199, guid: 25c0606dfb6284ed2a6745b1131a9b87, type: 3}
     enabled: 1
+  - prefab: {fileID: 6074820051814853782, guid: 1615db67baf174ab79cc3cac4415cf15, type: 3}
+    enabled: 1
 --- !u!4 &1426596489
 Transform:
   m_ObjectHideFlags: 0
@@ -228,8 +230,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1465974280}
-  - component: {fileID: 1465974281}
   - component: {fileID: 1465974282}
+  - component: {fileID: 1465974279}
   m_Layer: 0
   m_Name: PrefabCollection
   m_TagString: Untagged
@@ -237,6 +239,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1465974279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465974278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc5797e61aad42238807e4c0433f1cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 4019400109452817072, guid: 1a96f243a2f864872920484966b17c93, type: 3}
 --- !u!4 &1465974280
 Transform:
   m_ObjectHideFlags: 0
@@ -251,19 +266,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1465974281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1465974278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 658a34b68cf6747ddaef33b7d9cada47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prefab: {fileID: 2403591459373726321, guid: 1615db67baf174ab79cc3cac4415cf15, type: 3}
 --- !u!114 &1465974282
 MonoBehaviour:
   m_ObjectHideFlags: 0
