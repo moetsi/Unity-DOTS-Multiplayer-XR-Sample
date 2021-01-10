@@ -76,7 +76,12 @@ public class PlayerSpawnSystem : SystemBase
 
             //These are checks to see if the NCE has disconnected or if there are any other issues
             //These checks are pulled from Unity samples and we have left them in even though they seem
-            //to either check the same disconnect twice or not be coherent
+            //Is there a PlayerSpawningState on the NCE
+            //Is there a CommandTargetComponent on the NCE
+            //Is the CommandTargetComponent targetEntity == Entity.Null
+            //Is the PlayerSpawningState == 0
+            //If all those are true we continue with spawning, otherwise we don't
+
             if (!playerStateFromEntity.HasComponent(requestSource.SourceConnection) ||
                 !commandTargetFromEntity.HasComponent(requestSource.SourceConnection) ||
                 commandTargetFromEntity[requestSource.SourceConnection].targetEntity != Entity.Null ||

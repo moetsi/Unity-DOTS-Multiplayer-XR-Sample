@@ -12,11 +12,6 @@ public class InputSystem : SystemBase
     //We need this sytem group so we can grab its "ServerTick" for prediction when we respond to Commands
     private ClientSimulationSystemGroup m_ClientSimulationSystemGroup;
 
-    //We are going to use this to rate limit bullets per second
-    //We could have included this in the game settings, no "ECS reason" not to
-    private float m_PerSecond = 10f;
-    private float m_NextTime = 0;
-
     //We will use this for simulating inputs with our ThinClients
     private int m_FrameCount;
 
@@ -92,7 +87,7 @@ public class InputSystem : SystemBase
 
             }
         }
-        
+
         //Here are the instructions if we ARE a thin client
         else
         {
@@ -117,14 +112,6 @@ public class InputSystem : SystemBase
         var inputFromEntity = GetBufferFromEntity<PlayerCommand>();
         //We are sending the simulationsystemgroup tick so the server can playback our commands appropriately
         var inputTargetTick = m_ClientSimulationSystemGroup.ServerTick;
-
-        //we are going to implement rate limiting for shooting
-        var canShoot = false;
-        if (UnityEngine.Time.time >= m_NextTime)
-        {
-            canShoot = true;
-            m_NextTime += (1/m_PerSecond);
-        }
  
         //We query for the NCE by checking for entities with a NetworkIdComponent
         //We also do not want to send an RPC if the NCE has become disconnected
@@ -158,18 +145,13 @@ public class InputSystem : SystemBase
                 // If player, store commands in network command buffer
                 if (inputFromEntity.HasComponent(commandTargetComponent.targetEntity))
                 {
-                    var willShoot = shoot;
-                    //Here we implement our fire limiting
-                    if (!canShoot && willShoot == 1)
-                        willShoot = 0;
-
                     //Here we grab the CommandBuffer from our player entity
                     var input = inputFromEntity[commandTargetComponent.targetEntity];
 
                     //Notice that we are sending the ClientSimulationSystemGroup's server tick as part of the Command
                     //This is necessary for NetCode to function properly
                     input.AddCommandData(new PlayerCommand{Tick = inputTargetTick, left = left, right = right, thrust = thrust, reverseThrust = reverseThrust,
-                    selfDestruct = selfDestruct, shoot = willShoot,
+                    selfDestruct = selfDestruct, shoot = shoot,
                     mouseX = mouseX,
                     mouseY = mouseY});
                 }

@@ -207,6 +207,8 @@ MonoBehaviour:
     enabled: 1
   - prefab: {fileID: 6074820051814853782, guid: 1615db67baf174ab79cc3cac4415cf15, type: 3}
     enabled: 1
+  - prefab: {fileID: 1855805033533292784, guid: 88b31c76ee5ec4a3f8c29b9081188d7f, type: 3}
+    enabled: 1
 --- !u!4 &1426596489
 Transform:
   m_ObjectHideFlags: 0
@@ -230,7 +232,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1465974280}
-  - component: {fileID: 1465974282}
   - component: {fileID: 1465974279}
   m_Layer: 0
   m_Name: PrefabCollection
@@ -266,16 +267,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1465974282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1465974278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37c6a098a0ca4413b92e21020d240ce4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prefab: {fileID: 2301004256806367755, guid: 88b31c76ee5ec4a3f8c29b9081188d7f, type: 3}
