@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: ee6488829750a473c9a85bb52289aea4
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Helvetica CE
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: ed1e551caf13245d0a87a9c7cbe533eb, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

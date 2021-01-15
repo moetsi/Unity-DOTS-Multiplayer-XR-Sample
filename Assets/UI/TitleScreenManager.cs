@@ -24,9 +24,9 @@ public class TitleScreenManager : VisualElement
         m_JoinScreen = this.Q("JoinGameScreen");
         m_ManualConnectScreen = this.Q("ManualConnectScreen");
 
-        m_TitleScreen?.Q("host-local-button")?.RegisterCallback<ClickEvent>(ev => EnableHostScreen());
-        m_TitleScreen?.Q("join-local-button")?.RegisterCallback<ClickEvent>(ev => EnableJoinScreen());
-        m_TitleScreen?.Q("manual-connect-button")?.RegisterCallback<ClickEvent>(ev => EnableManualScreen());
+        m_TitleScreen?.Q("host-local-game")?.RegisterCallback<ClickEvent>(ev => EnableHostScreen());
+        m_TitleScreen?.Q("join-local-game")?.RegisterCallback<ClickEvent>(ev => EnableJoinScreen());
+        m_TitleScreen?.Q("manual-connect")?.RegisterCallback<ClickEvent>(ev => EnableManualScreen());
 
         m_HostScreen?.Q("back-button")?.RegisterCallback<ClickEvent>(ev => EnableTitleScreen());
         m_JoinScreen?.Q("back-button")?.RegisterCallback<ClickEvent>(ev => EnableTitleScreen());
@@ -46,6 +46,7 @@ public class TitleScreenManager : VisualElement
 
     public void EnableJoinScreen()
     {
+        Debug.Log("Enable join screen trigger");
         m_TitleScreen.style.display = DisplayStyle.None;
         m_HostScreen.style.display = DisplayStyle.None;
         m_JoinScreen.style.display = DisplayStyle.Flex;
