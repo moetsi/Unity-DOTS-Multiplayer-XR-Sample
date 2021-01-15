@@ -46,7 +46,6 @@ public class TitleScreenManager : VisualElement
 
     public void EnableJoinScreen()
     {
-        Debug.Log("Enable join screen trigger");
         m_TitleScreen.style.display = DisplayStyle.None;
         m_HostScreen.style.display = DisplayStyle.None;
         m_JoinScreen.style.display = DisplayStyle.Flex;

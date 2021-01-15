@@ -38,7 +38,7 @@ public class JoinGameScreen : VisualElement
         m_PlayerName = this.Q<TextField>("player-name");
 
         //  CLICKING CALLBACKS
-        this.Q("launch-host-game")?.RegisterCallback<ClickEvent>(ev => ClickedJoinGame());
+        this.Q("launch-join-game")?.RegisterCallback<ClickEvent>(ev => ClickedJoinGame());
 
 
 
@@ -50,5 +50,12 @@ public class JoinGameScreen : VisualElement
         Debug.Log("clicked client game");
     }
 
+    public void LoadJoinScreenForSelectedServer(GameObject localGame)
+    {
+        m_GameName = this.Q<Label>("game-name");
+        m_GameIp = this.Q<Label>("game-ip");
+        m_GameName.text = localGame.name;
+        m_GameIp.text = localGame.name;
+    }
 
 }

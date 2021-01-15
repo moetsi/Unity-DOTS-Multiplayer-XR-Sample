@@ -11,4 +11,5 @@
   <xs:import schemaLocation="Unity.Cloud.Collaborate.Components.xsd" namespace="Unity.Cloud.Collaborate.Components" />
   <xs:import schemaLocation="Unity.Cloud.Collaborate.Components.ChangeListEntries.xsd" namespace="Unity.Cloud.Collaborate.Components.ChangeListEntries" />
   <xs:import schemaLocation="UnityEngine.UIExtras.xsd" namespace="UnityEngine.UIExtras" />
+  <xs:include schemaLocation="GlobalNamespace.xsd" />
 </xs:schema>
