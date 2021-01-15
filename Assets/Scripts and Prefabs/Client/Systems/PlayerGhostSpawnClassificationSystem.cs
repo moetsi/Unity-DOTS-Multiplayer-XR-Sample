@@ -25,6 +25,7 @@ public class PlayerGhostSpawnClassificationSystem : SystemBase
 
         //We need to make sure we have NCE before we start the update loop (otherwise it's unnecessary)
         RequireSingletonForUpdate<NetworkIdComponent>();
+        RequireSingletonForUpdate<CameraAuthoringComponent>();
     }
 
     struct GhostPlayerState : ISystemStateComponentData
