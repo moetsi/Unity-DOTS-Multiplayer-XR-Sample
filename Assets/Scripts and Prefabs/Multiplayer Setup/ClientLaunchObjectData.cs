@@ -5,7 +5,11 @@ using System.Net;
 
 public class ClientLaunchObjectData : MonoBehaviour
 {
-    public string IPAddress = "127.0.0.1";
+    //This will be set by ClientServerLauncher in NavigationScene
+    //It will then be pulled out in MainScene and put into ClientServerInfo
+    public string PlayerName;
+    public string IPAddress;
+
     // Start is called before the first frame update
     void Start()
     {

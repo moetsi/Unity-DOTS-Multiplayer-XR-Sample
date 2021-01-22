@@ -11,6 +11,12 @@ public class ClientServerInfo : MonoBehaviour
     public string ConnectToServerIp;
     public ushort GamePort = 5001;
 
+    public string GameName;
+    public string PlayerName;
+
+    public string BroadcastIpAddress;
+    public ushort BroadcastPort;
+
     // Start is called before the first frame update
     void Start()
     {

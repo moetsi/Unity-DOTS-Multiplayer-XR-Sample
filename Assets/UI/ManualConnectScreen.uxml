@@ -11,7 +11,7 @@
                     <ui:Label text="Manually Connect" display-tooltip-when-elided="True" name="section-title" class="section-title" />
                 </ui:VisualElement>
                 <ui:VisualElement name="game-ip-container" class="data-section">
-                    <ui:TextField picking-mode="Ignore" value="HostIPValue" text="127.0.0.1" name="game-ip" readonly="false" class="data-section-input" style="background-color: rgb(255, 255, 255);" />
+                    <ui:TextField picking-mode="Ignore" value="127.0.0.1" text="127.0.0.1" name="game-ip" readonly="false" class="data-section-input" style="background-color: rgb(255, 255, 255);" />
                     <ui:Label text="Game&apos;s IP Address" display-tooltip-when-elided="True" name="game-ip-label" class="data-section-label" />
                 </ui:VisualElement>
                 <ui:VisualElement name="player-name-container" class="data-section">

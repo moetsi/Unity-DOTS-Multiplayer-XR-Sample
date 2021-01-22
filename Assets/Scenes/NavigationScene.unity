@@ -508,6 +508,8 @@ MonoBehaviour:
   m_TitleUIDocument: {fileID: 1670768665}
   m_localGameListItemAsset: {fileID: 9197481963319205126, guid: 14b05c4727d1e4683b6a38e217a82655, type: 3}
   perSecond: 1
+  BroadcastIpAddress: 192.168.1.255
+  BroadcastPort: 8014
 --- !u!4 &1346178354
 Transform:
   m_ObjectHideFlags: 0
@@ -551,7 +553,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cae1cf70eea345aeacb8b4b08ae6c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameBroadcasting: {fileID: 1346178353}
   m_TitleUIDocument: {fileID: 1670768665}
+  ServerLauncherObject: {fileID: 2478487610468133688, guid: 291dd1dbb236a45eaaff4dddf745e6ce, type: 3}
+  ClientLauncherObject: {fileID: 2150024940712245742, guid: d37f98b6bd771445e818bba8e0561785, type: 3}
 --- !u!4 &1556314540
 Transform:
   m_ObjectHideFlags: 0
@@ -607,6 +612,7 @@ GameObject:
   - component: {fileID: 1670768667}
   - component: {fileID: 1670768666}
   - component: {fileID: 1670768665}
+  - component: {fileID: 1670768668}
   m_Layer: 0
   m_Name: TitleScreenUI
   m_TagString: Untagged
@@ -662,6 +668,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1670768668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670768664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3542370ef3c34863bbae55b10909e34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TitleUIDocument: {fileID: 1670768665}
 --- !u!1 &1839610661
 GameObject:
   m_ObjectHideFlags: 0
