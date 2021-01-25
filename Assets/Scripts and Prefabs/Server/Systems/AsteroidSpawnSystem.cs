@@ -62,16 +62,9 @@ public class AsteroidSpawnSystem : SystemBase
         //Here we set the prefab we will use
         if (m_Prefab == Entity.Null)
         {
-            //We must now grab the prefab by going through the the GhostCollection
-            var prefabEntity = GetSingletonEntity<GhostPrefabCollectionComponent>();
-            var prefabs = EntityManager.GetBuffer<GhostPrefabBuffer>(prefabEntity);
-            for (int i = 0; i < prefabs.Length; ++i)
-            {   //We go through all the prefabs in the GhostCollection and search for the AsteroidTag
-                if (EntityManager.HasComponent<AsteroidTag>(prefabs[i].Value))
-                    //We found our Asteroid prefab and we set our variable
-                    m_Prefab = prefabs[i].Value;
-            }
-
+            //We grab the converted PrefabCollection Entity's AsteroidAuthoringComponent
+            //and set m_Prefab to its Prefab value
+            m_Prefab = GetSingleton<AsteroidAuthoringComponent>().Prefab;
             //we must "return" after setting this prefab because if we were to continue into the Job
             //we would run into errors because the variable was JUST set (ECS funny business)
             //comment out return and see the error
