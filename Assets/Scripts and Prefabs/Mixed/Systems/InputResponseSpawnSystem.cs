@@ -34,32 +34,23 @@ public class InputResponseSpawnSystem : SystemBase
         //This will grab the BeginSimulationEntityCommandBuffer system to be used in OnUpdate
         m_PredictionGroup = World.GetOrCreateSystem<GhostPredictionSystemGroup>();
         
-        //We need to ensure the GhostPrefabCollectionComponent has streamed from the SubScene because
-        //it is required for the OnUpdate()
-        RequireSingletonForUpdate<GhostPrefabCollectionComponent>();        
+        //We check to ensure GameSettingsComponent exists to know if the SubScene has been streamed in
+        //We need the SubScene for actions in our OnUpdate()
+        RequireSingletonForUpdate<GameSettingsComponent>();        
     }
 
     protected override void OnUpdate()
     {
 
+        //Here we set the prefab we will use
         if (m_BulletPrefab == Entity.Null)
         {
-            //We must now grab the prefab by going through the the GhostCollection
-            var prefabEntity = GetSingletonEntity<GhostPrefabCollectionComponent>();
-            var prefabs = EntityManager.GetBuffer<GhostPrefabBuffer>(prefabEntity);
-            //We need this variable so we can CreatePredictedSpawnPrefab below
-            var foundPrefab = Entity.Null;
-            for (int i = 0; i < prefabs.Length; ++i)
-            {   //We go through all the prefabs in the GhostCollection and search for the BulletTag
-                if (EntityManager.HasComponent<BulletTag>(prefabs[i].Value))
-                    //We found our Bullet prefab and we set it to the local variable
-                    //We need to do one more step which is to call CreatePredictedSpawnPrefab
-                    foundPrefab = prefabs[i].Value;
-            }
-            //This is a special component we must attach to any player spawned objects (NetCode requirement)
-            m_BulletPrefab = GhostCollectionSystem.CreatePredictedSpawnPrefab(EntityManager, foundPrefab);
+            //We grab the converted PrefabCollection Entity's BulletAuthoringComponent
+            //and set m_BulletPrefab to its Prefab value
+            m_BulletPrefab = GetSingleton<BulletAuthoringComponent>().Prefab;
             //we must "return" after setting this prefab because if we were to continue into the Job
             //we would run into errors because the variable was JUST set (ECS funny business)
+            //comment out return and see the error
             return;
         }
         
@@ -108,6 +99,9 @@ public class InputResponseSpawnSystem : SystemBase
             {
                 // We create the bullet here
                 var bullet = commandBuffer.Instantiate(nativeThreadIndex, bulletPrefab);
+                //We declare it as a predicted spawning for player spawned objects by adding a special component
+                commandBuffer.AddComponent(nativeThreadIndex, bullet, new PredictedGhostSpawnRequestComponent());
+
 
                 //we set the bullets position as the player's position + the bullet spawn offset
                 //math.mul(rotation.Value,bulletOffset.Value) finds the position of the bullet offset in the given rotation
@@ -123,7 +117,6 @@ public class InputResponseSpawnSystem : SystemBase
                 commandBuffer.SetComponent(nativeThreadIndex, bullet,
                     new GhostOwnerComponent {NetworkId = ghostOwner.NetworkId});
 
-                commandBuffer.AddComponent(nativeThreadIndex, bullet, new PredictedGhostSpawnRequestComponent());
 
                 bulletOffset.WeaponCooldown = currentTick + k_CoolDownTicksCount;
             }
