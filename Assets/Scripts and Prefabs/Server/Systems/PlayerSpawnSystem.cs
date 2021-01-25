@@ -24,8 +24,10 @@ public class PlayerSpawnSystem : SystemBase
     {
         m_BeginSimEcb = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
 
-        RequireSingletonForUpdate<GhostPrefabCollectionComponent>();
-        RequireSingletonForUpdate<GameSettingsComponent>();
+
+        //We check to ensure GameSettingsComponent exists to know if the SubScene has been streamed in
+        //We need the SubScene for actions in our OnUpdate()
+        RequireSingletonForUpdate<GameSettingsComponent>(); 
     }
 
     protected override void OnUpdate()
@@ -33,18 +35,12 @@ public class PlayerSpawnSystem : SystemBase
         //Here we set the prefab we will use
         if (m_Prefab == Entity.Null)
         {
-            //We must now grab the prefab by going through the the GhostCollection
-            var prefabEntity = GetSingletonEntity<GhostPrefabCollectionComponent>();
-            var prefabs = EntityManager.GetBuffer<GhostPrefabBuffer>(prefabEntity);
- 
-            for (int i = 0; i < prefabs.Length; ++i)
-            {  //We go through all the prefabs in the GhostCollection and search for the PlayerTag
-                if (EntityManager.HasComponent<PlayerTag>(prefabs[i].Value))
-                    //We found our Player prefab and we set our variable
-                    m_Prefab = prefabs[i].Value;
-            }
+            //We grab the converted PrefabCollection Entity's PlayerAuthoringComponent
+            //and set m_Prefab to its Prefab value
+            m_Prefab = GetSingleton<PlayerAuthoringComponent>().Prefab;
             //we must "return" after setting this prefab because if we were to continue into the Job
             //we would run into errors because the variable was JUST set (ECS funny business)
+            //comment out return and see the error
             return;
         }
 
