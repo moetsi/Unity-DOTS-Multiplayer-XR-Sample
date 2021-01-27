@@ -66,6 +66,7 @@ public class PlayerRelevancySphereSystem : SystemBase
         var transFromEntity = GetComponentDataFromEntity<Translation>(true);
         var connectionHandle = Entities
             .WithReadOnly(transFromEntity)
+            .WithNone<NetworkStreamDisconnected>()
             .ForEach((in NetworkIdComponent netId, in CommandTargetComponent target) => {
             var pos = new float3();
             //If we havent spawned a player yet we will set the position to the location of the main camera

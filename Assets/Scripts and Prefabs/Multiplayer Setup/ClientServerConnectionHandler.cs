@@ -177,6 +177,8 @@ public class ClientServerConnectionHandler : MonoBehaviour
         else
             Debug.Log("Loading: " + "NavigationScene");
 #endif
+        if (ClientServerInfo.IsServer)
+                    m_ServerWorld.GetExistingSystem<GhostDistancePartitioningSystem>().Enabled = false;
     }
 
     //When the OnDestroy method is called (because of our transition to NavigationScene) we
@@ -188,10 +190,13 @@ public class ClientServerConnectionHandler : MonoBehaviour
         {
             Destroy(launchObjects[i]);
         }
+        foreach (var world in World.All)
+        {
+            var entityManager = world.EntityManager;
+            var uq = entityManager.UniversalQuery;
+            world.EntityManager.DestroyEntity(uq);
+        }
 
-        //This query deletes all entities
-        World.DefaultGameObjectInjectionWorld.EntityManager.DestroyEntity(World.DefaultGameObjectInjectionWorld.EntityManager.UniversalQuery);
-        //This query deletes all worlds
         World.DisposeAllWorlds();
 
         //We return to our initial world that we started with, defaultWorld
