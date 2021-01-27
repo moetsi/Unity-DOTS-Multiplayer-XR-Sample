@@ -11,6 +11,7 @@ public class SetGameSettingsSystem : UnityEngine.MonoBehaviour, IConvertGameObje
     public int levelWidth = 2048;
     public int levelHeight = 2048;
     public int levelDepth = 2048;
+    public int relevencyRadius = 0;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         var settings = default(GameSettingsComponent);
@@ -21,6 +22,7 @@ public class SetGameSettingsSystem : UnityEngine.MonoBehaviour, IConvertGameObje
         settings.levelWidth = levelWidth;
         settings.levelHeight = levelHeight;
         settings.levelDepth = levelDepth;
+        settings.relevancyRadius = relevencyRadius;
         dstManager.AddComponentData(entity, settings);
     }
 }
