@@ -34,7 +34,7 @@ public class LocalGamesFinder : MonoBehaviour
     private float nextTime = 0; 
 
     ///The broadcast ip address and port to be used by the server across the LAN
-    public string BroadcastIpAddress = "192.168.1.255";
+    public string BroadcastIpAddress = "255.255.255.255";
     public ushort BroadcastPort = 8014;
 
     //We will be storing our UdpConnection class as connection
