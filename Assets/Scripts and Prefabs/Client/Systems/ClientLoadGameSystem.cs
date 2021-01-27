@@ -14,10 +14,11 @@ public class ClientLoadGameSystem : SystemBase
         //We will be using the BeginSimECB
         m_BeginSimEcb = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
 
-        //Requiring the ReceiveRpcCommandRequestComponent ensures that update is only run when an NCE exists
+        //Requiring the ReceiveRpcCommandRequestComponent ensures that update is only run when an NCE exists and a SendClientGameRpc has come in
         RequireForUpdate(GetEntityQuery(ComponentType.ReadOnly<SendClientGameRpc>(), ComponentType.ReadOnly<ReceiveRpcCommandRequestComponent>()));   
         //This is just here to make sure the Sub Scene is streamed in before the client sets up the level data
         RequireSingletonForUpdate<GameSettingsComponent>();
+        //We will make sure we have our ClientDataComponent so we can send the server our player name
         RequireSingletonForUpdate<ClientDataComponent>();
     }
 
@@ -29,6 +30,7 @@ public class ClientLoadGameSystem : SystemBase
         var rpcFromEntity = GetBufferFromEntity<OutgoingRpcDataStreamBufferComponent>();
         var gameSettingsEntity = GetSingletonEntity<GameSettingsComponent>();
         var getGameSettingsComponentData = GetComponentDataFromEntity<GameSettingsComponent>();
+        var clientData = GetSingleton<ClientDataComponent>(); //We will use this to send the player name to server
 
         Entities
         .ForEach((Entity entity, in SendClientGameRpc request, in ReceiveRpcCommandRequestComponent requestSource) =>
@@ -72,6 +74,11 @@ public class ClientLoadGameSystem : SystemBase
             var levelReq = commandBuffer.CreateEntity();
             commandBuffer.AddComponent(levelReq, new SendServerGameLoadedRpc());
             commandBuffer.AddComponent(levelReq, new SendRpcCommandRequestComponent {TargetConnection = requestSource.SourceConnection});
+
+            // this tells the server "This is my name and Id" which will be used for player score tracking
+            var playerReq = commandBuffer.CreateEntity();
+            commandBuffer.AddComponent(playerReq, new SendServerPlayerNameRpc {playerName = clientData.PlayerName});
+            commandBuffer.AddComponent(playerReq, new SendRpcCommandRequestComponent {TargetConnection = requestSource.SourceConnection});
 
         }).Schedule();
 
