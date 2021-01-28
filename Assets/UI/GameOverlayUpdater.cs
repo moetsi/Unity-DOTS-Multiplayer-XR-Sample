@@ -16,8 +16,9 @@ public class GameOverlayUpdater : MonoBehaviour
     private Label m_HighScoreText;
     private Label m_HighestScoreText;
     
-    //We will need ClientServerInfo to update our VisualElements with appropriate valuess
+    //We will need ClientServerInfo to update our VisualElements with appropriate values
     public ClientServerInfo ClientServerInfo;
+    private World m_ClientWorld;
     private ClientSimulationSystemGroup m_ClientWorldSimulationSystemGroup;
 
     //Will check for GameNameComponent
@@ -71,6 +72,7 @@ public class GameOverlayUpdater : MonoBehaviour
         {
             if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
             {
+                m_ClientWorld = world;
                 m_ClientWorldSimulationSystemGroup = world.GetExistingSystem<ClientSimulationSystemGroup>();
                 m_GameNameComponentQuery = world.EntityManager.CreateEntityQuery(ComponentType.ReadOnly<GameNameComponent>());
 
@@ -113,46 +115,41 @@ public class GameOverlayUpdater : MonoBehaviour
         }
 
         //We set our PlayerScore entity once
-        if (ClientPlayerScoreEntity == Entity.Null)
-        {
-            //Grab PlayerScore entities
-            var playerScoresNative = m_PlayerScoresQuery.ToEntityArray(Allocator.TempJob);
+        //Grab PlayerScore entities
+        var playerScoresNative = m_PlayerScoresQuery.ToEntityArray(Allocator.TempJob);
 
-            //For each entity find the entity with a matching NetworkId
-            for (int j = 0; j < playerScoresNative.Length; j++)
+        //For each entity find the entity with a matching NetworkId
+        for (int j = 0; j < playerScoresNative.Length; j++)
+        {
+            //Grab the NetworkId of the PlayerScore entity
+            var netId = m_ClientWorldSimulationSystemGroup.GetComponentDataFromEntity<PlayerScoreComponent>(true)[playerScoresNative[j]].networkId;
+            //Check if it matches our NetworkId that we set
+            if(netId == m_NetworkId)
             {
-                //Grab the NetworkId of the PlayerScore entity
-                var netId = m_ClientWorldSimulationSystemGroup.GetComponentDataFromEntity<PlayerScoreComponent>(true)[playerScoresNative[j]].networkId;
-                //Check if it matches our NetworkId that we set
-                if(netId == m_NetworkId)
-                {
-                    //If it matches set our ClientPlayerScoreEntity
-                    ClientPlayerScoreEntity = playerScoresNative[j];
-                }
+                //If it matches set our ClientPlayerScoreEntity
+                ClientPlayerScoreEntity = playerScoresNative[j];
             }
-            //No need for this anymore
-            playerScoresNative.Dispose();
         }
-        else {
-            //Every Update() we get grab the PlayerScoreComponent from our set Entity and check it out with current values
-            var playerScoreComponent = m_ClientWorldSimulationSystemGroup.GetComponentDataFromEntity<PlayerScoreComponent>(true)[ClientPlayerScoreEntity];
-            
-            //Check if current is different and update to ghost value
-            if(m_CurrentScore != playerScoreComponent.currentScore)
-            {
-                //If it is make it match the ghost value
-                m_CurrentScore = playerScoreComponent.currentScore;
-                UpdateCurrentScore();
-            }
-            //Check if current is different and update to ghost value
-            if(m_HighScore != playerScoreComponent.highScore)
-            {
-                //If it is make it match the ghost value
-                m_HighScore = playerScoreComponent.highScore;
-                UpdateHighScore();
-            }            
-        }
+        //No need for this anymore
+        playerScoresNative.Dispose();
         
+        //Every Update() we get grab the PlayerScoreComponent from our set Entity and check it out with current values
+        var playerScoreComponent = m_ClientWorldSimulationSystemGroup.GetComponentDataFromEntity<PlayerScoreComponent>(true)[ClientPlayerScoreEntity];
+        
+        //Check if current is different and update to ghost value
+        if(m_CurrentScore != playerScoreComponent.currentScore)
+        {
+            //If it is make it match the ghost value
+            m_CurrentScore = playerScoreComponent.currentScore;
+            UpdateCurrentScore();
+        }
+        //Check if current is different and update to ghost value
+        if(m_HighScore != playerScoreComponent.highScore)
+        {
+            //If it is make it match the ghost value
+            m_HighScore = playerScoreComponent.highScore;
+            UpdateHighScore();
+        }            
 
         //We grab our HighestScoreComponent
         var highestScoreNative = m_HighestScoreQuery.ToComponentDataArray<HighestScoreComponent>(Allocator.TempJob);
