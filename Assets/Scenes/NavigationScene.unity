@@ -238,7 +238,7 @@ MonoBehaviour:
   m_TitleUIDocument: {fileID: 1670768665}
   m_localGameListItemAsset: {fileID: 9197481963319205126, guid: 14b05c4727d1e4683b6a38e217a82655, type: 3}
   perSecond: 1
-  BroadcastIpAddress: 192.168.1.255
+  BroadcastIpAddress: 255.255.255.255
   BroadcastPort: 8014
 --- !u!4 &1346178354
 Transform:
