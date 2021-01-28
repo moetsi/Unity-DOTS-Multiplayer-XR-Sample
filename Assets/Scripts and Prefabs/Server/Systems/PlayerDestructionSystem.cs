@@ -49,6 +49,7 @@ public class PlayerDestructionSystem : SystemBase
         //It means "yes we know what we are doing, allow us to write over this variable"
         var playerDestructionJob = Entities
         .WithDisposeOnCompletion(playerScoreEntities)
+        .WithReadOnly(playerScoreEntities)
         .WithNativeDisableParallelForRestriction(playerScoreComponent)
         .WithNativeDisableParallelForRestriction(commandTargetFromEntity)
         .WithAll<DestroyTag, PlayerTag>()
