@@ -46,19 +46,21 @@ public class PlayerRelevancySphereSystem : SystemBase
             return;
         }
         //This is a special NetCode system configuration
+        //This is saying that any ghost we put in this list is IRRELEVANT (it means ignore these ghosts)
         m_GhostSendSystem.GhostRelevancyMode = GhostRelevancyMode.SetIsIrrelevant;
 
         //We create a new list of connections ever OnUpdate
         m_Connections.Clear();
-        var relevantSet = m_GhostSendSystem.GhostRelevancySet;
-        var parallelRelevantSet = relevantSet.AsParallelWriter();
+        var irrelevantSet = m_GhostSendSystem.GhostRelevancySet;
+        //This is our irrelevantSet that we will be using to add to our list
+        var parallelIsNotRelevantSet = irrelevantSet.AsParallelWriter();
 
         var maxRelevantSize = m_GhostQuery.CalculateEntityCount() * m_ConnectionQuery.CalculateEntityCount();
 
         var clearHandle = Job.WithCode(() => {
-            relevantSet.Clear();
-            if (relevantSet.Capacity < maxRelevantSize)
-                relevantSet.Capacity = maxRelevantSize;
+            irrelevantSet.Clear();
+            if (irrelevantSet.Capacity < maxRelevantSize)
+                irrelevantSet.Capacity = maxRelevantSize;
         }).Schedule(m_GhostSendSystem.GhostRelevancySetWriteHandle);
 
         //Here we grab the positions and networkids of the NCEs ComandTargetCommponent's targetEntity
@@ -67,6 +69,7 @@ public class PlayerRelevancySphereSystem : SystemBase
         var connectionHandle = Entities
             .WithReadOnly(transFromEntity)
             .WithNone<NetworkStreamDisconnected>()
+            .WithAll<NetworkStreamInGame>()
             .ForEach((in NetworkIdComponent netId, in CommandTargetComponent target) => {
             var pos = new float3();
             //If we havent spawned a player yet we will set the position to the location of the main camera
@@ -80,11 +83,13 @@ public class PlayerRelevancySphereSystem : SystemBase
         //Here we check all ghosted entities and see which ones are relevant to the NCEs based on distance and the relevancy radius
         Dependency = Entities
             .WithReadOnly(connections)
-            .ForEach((in GhostComponent ghost, in Translation pos) => {
+            .ForEach((Entity entity, in GhostComponent ghost, in Translation pos) => {
             for (int i = 0; i < connections.Length; ++i)
             {
-                if (math.distance(pos.Value, connections[i].Position) > settings.relevancyRadius)
-                    parallelRelevantSet.TryAdd(new RelevantGhostForConnection(connections[i].ConnectionId, ghost.ghostId), 1);
+                //Here we do a check on distance, and if the entity is a PlayerScore or HighestScore entity
+                //If the ghost is out of the radius (and is not PlayerScore or HighestScore) then we add it to the "ignore this ghost" list (parallelIsNotRelevantSet)
+                if (math.distance(pos.Value, connections[i].Position) > settings.relevancyRadius && !(HasComponent<PlayerScoreComponent>(entity) || HasComponent<HighestScoreComponent>(entity)))
+                    parallelIsNotRelevantSet.TryAdd(new RelevantGhostForConnection(connections[i].ConnectionId, ghost.ghostId), 1);
             }
         }).ScheduleParallel(JobHandle.CombineDependencies(connectionHandle, clearHandle));
 
