@@ -133,24 +133,26 @@ public class GameOverlayUpdater : MonoBehaviour
             //No need for this anymore
             playerScoresNative.Dispose();
         }
-        
-        //Every Update() we get grab the PlayerScoreComponent from our set Entity and check it out with current values
-        var playerScoreComponent = m_ClientWorldSimulationSystemGroup.GetComponentDataFromEntity<PlayerScoreComponent>(true)[ClientPlayerScoreEntity];
-        
-        //Check if current is different and update to ghost value
-        if(m_CurrentScore != playerScoreComponent.currentScore)
-        {
-            //If it is make it match the ghost value
-            m_CurrentScore = playerScoreComponent.currentScore;
-            UpdateCurrentScore();
+        else {
+            //Every Update() we get grab the PlayerScoreComponent from our set Entity and check it out with current values
+            var playerScoreComponent = m_ClientWorldSimulationSystemGroup.GetComponentDataFromEntity<PlayerScoreComponent>(true)[ClientPlayerScoreEntity];
+            
+            //Check if current is different and update to ghost value
+            if(m_CurrentScore != playerScoreComponent.currentScore)
+            {
+                //If it is make it match the ghost value
+                m_CurrentScore = playerScoreComponent.currentScore;
+                UpdateCurrentScore();
+            }
+            //Check if current is different and update to ghost value
+            if(m_HighScore != playerScoreComponent.highScore)
+            {
+                //If it is make it match the ghost value
+                m_HighScore = playerScoreComponent.highScore;
+                UpdateHighScore();
+            }            
         }
-        //Check if current is different and update to ghost value
-        if(m_HighScore != playerScoreComponent.highScore)
-        {
-            //If it is make it match the ghost value
-            m_HighScore = playerScoreComponent.highScore;
-            UpdateHighScore();
-        }
+        
 
         //We grab our HighestScoreComponent
         var highestScoreNative = m_HighestScoreQuery.ToComponentDataArray<HighestScoreComponent>(Allocator.TempJob);
