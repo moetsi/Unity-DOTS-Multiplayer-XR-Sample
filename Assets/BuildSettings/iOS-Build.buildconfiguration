@@ -1,0 +1,19 @@
+{
+    "Dependencies": [
+        "GlobalObjectId_V1-1-f19661c01bdcad546b54998aa9a0d08a-93214019566545601-0"
+    ],
+    "Components": [
+        {
+            "$type": "Unity.Build.Classic.ClassicBuildProfile, Unity.Build.Classic",
+            "$version": 1,
+            "Platform": "ios",
+            "Configuration": 2
+        },
+        {
+            "$type": "Unity.Build.Classic.ClassicScriptingSettings, Unity.Build.Classic",
+            "ScriptingBackend": 1,
+            "Il2CppCompilerConfiguration": 0,
+            "UseIncrementalGC": false
+        }
+    ]
+}
