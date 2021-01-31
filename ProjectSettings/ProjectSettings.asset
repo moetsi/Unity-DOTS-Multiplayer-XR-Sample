@@ -586,7 +586,7 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     1: HYBRID_ENTITIES_CAMERA_CONVERSION
-    4: UNITY_XR_ARKIT_LOADER_ENABLED
+    4: UNITY_XR_ARKIT_LOADER_ENABLED;HYBRID_ENTITIES_CAMERA_CONVERSION
   platformArchitecture: {}
   scriptingBackend:
     iPhone: 1

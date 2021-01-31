@@ -18,4 +18,7 @@ public struct PlayerCommand : ICommandData
     public byte shoot;
     public float mouseX;
     public float mouseY;
+    public byte isAR;
+    public float3 arTranslation;
+    public quaternion arRotation;
 }

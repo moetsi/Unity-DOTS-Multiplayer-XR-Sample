@@ -51,13 +51,16 @@ public class PlayerGhostSpawnClassificationSystem : SystemBase
         var playerEntity = GetSingletonEntity<NetworkIdComponent>();
         //The false is to signify that the data will NOT be read-only
         var commandTargetFromEntity = GetComponentDataFromEntity<CommandTargetComponent>(false);
+        //Check if this is an AR player
+        IsARPlayerComponent arComponent;
+        var isAR = TryGetSingleton<IsARPlayerComponent>(out arComponent);
 
         //We search for player entities with a PredictedGhostComponent (which means it is ours)
         Entities
         .WithAll<PlayerTag, PredictedGhostComponent>()
         .WithNone<GhostPlayerState>()
         .WithNativeDisableParallelForRestriction(commandTargetFromEntity)
-        .ForEach((Entity entity, int entityInQueryIndex) =>
+        .ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in Rotation rotation) =>
         {
             //Here is where we update the NCE's CommandTargetComponent targetEntity to point at our player entity
             var state = commandTargetFromEntity[playerEntity];
@@ -73,11 +76,23 @@ public class PlayerGhostSpawnClassificationSystem : SystemBase
             //.WithNone<GhostPlayerState>() on our entity query
             commandBuffer.AddComponent(entityInQueryIndex, entity, new GhostPlayerState());
 
-            //This creates our camera
-            var cameraEntity = commandBuffer.Instantiate(entityInQueryIndex, camera);
-            //This is how you "attach" a prefab entity to another
-            commandBuffer.AddComponent(entityInQueryIndex, cameraEntity, new Parent { Value = entity });
-            commandBuffer.AddComponent(entityInQueryIndex, cameraEntity, new LocalToParent() );
+            if(!isAR)
+            {
+                //This creates our camera
+                var cameraEntity = commandBuffer.Instantiate(entityInQueryIndex, camera);
+                //This is how you "attach" a prefab entity to another
+                commandBuffer.AddComponent(entityInQueryIndex, cameraEntity, new Parent { Value = entity });
+                commandBuffer.AddComponent(entityInQueryIndex, cameraEntity, new LocalToParent() );
+            }
+            //If we are an AR player we will create SpawnPositionForARoComponent
+            if (isAR)
+            {
+                var spawnLocation = commandBuffer.CreateEntity(entityInQueryIndex);
+                commandBuffer.AddComponent(entityInQueryIndex, spawnLocation, new SpawnPositionForARComponent {
+                    spawnTranslation = translation.Value,
+                    spawnRotation = rotation.Value
+                });
+            }
 
         }).ScheduleParallel();
 

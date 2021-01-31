@@ -46,7 +46,7 @@ public class InputResponseMovementSystem : SystemBase
         Entities
         .WithReadOnly(inputFromEntity)
         .WithAll<PlayerTag, PlayerCommand>()
-        .ForEach((Entity entity, int nativeThreadIndex, ref Rotation rotation, ref VelocityComponent velocity,
+        .ForEach((Entity entity, int nativeThreadIndex, ref Translation translation, ref Rotation rotation, ref VelocityComponent velocity,
                 in GhostOwnerComponent ghostOwner, in PredictedGhostComponent prediction) =>
         {
             //Here we check if we SHOULD do the prediction based on the tick, if we shouldn't, we return
@@ -97,10 +97,18 @@ public class InputResponseMovementSystem : SystemBase
                 newQuaternion.eulerAngles = new Vector3(pitch,yaw, 0);
                 rotation.Value = newQuaternion;
             }
-           
+            //If the PlayerCommand is from an AR player we will update movement in a special way
+            if (inputData.isAR == 1)
+            {
+                //The player is going to be (0,-2,10) relative to the AR pose
+                //This will make the player appear a bit lower and in front of the camera, making it easier to control
+                translation.Value = (inputData.arTranslation) - (math.mul(rotation.Value, new float3(0,2,0)).xyz) + (math.mul(rotation.Value, new float3(0,0,10)).xyz);
+                //The player will face the same direction as the camera
+                rotation.Value = (inputData.arRotation);
+            }
+
         }).ScheduleParallel();
 
         //No need to .AddJobHandleForProducer() because we did not need a CommandBuffer to make structural changes
-    }
-    
+    }   
 }
