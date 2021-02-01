@@ -53,14 +53,14 @@
 }
 
 .header {
-    height: 108px;
     position: absolute;
     flex-direction: row;
     justify-content: space-between;
     flex-grow: 1;
     top: 0;
     width: 100%;
-    align-items: center;
+    align-items: flex-start;
+    padding-top: 85px;
 }
 
 .main-content {
@@ -283,11 +283,12 @@
 
 .logo {
     flex-grow: 1;
-    max-width: 200px;
+    max-width: 300px;
     height: 68px;
     margin-left: 10px;
-    background-image: url('/Assets/UI/moetsi-logo-hq.png');
+    background-image: url('/Assets/UI/Moetsi Logo SVG.svg');
     -unity-background-scale-mode: scale-to-fit;
+    padding-top: 10px;
 }
 
 .local-games-list-container {

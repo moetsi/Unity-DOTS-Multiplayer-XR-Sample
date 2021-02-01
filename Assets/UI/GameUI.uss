@@ -53,11 +53,12 @@
 
 .game-ui-header {
     height: auto;
+    flex-direction: row;
+    align-items: flex-start;
 }
 
 .top-right-container {
     margin-right: 10px;
-    margin-top: 10px;
 }
 
 .top-right-values {
@@ -84,7 +85,7 @@
     flex-grow: 1;
     width: 100%;
     height: auto;
-    padding-bottom: 10px;
+    padding-bottom: 45px;
 }
 
 .bottom-left {
@@ -95,5 +96,5 @@
 .instruction-text {
     color: rgb(255, 255, 255);
     white-space: normal;
-    font-size: 14px;
+    font-size: 18px;
 }

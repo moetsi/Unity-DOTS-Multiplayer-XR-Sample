@@ -345,6 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Session: {fileID: 700606287}
   m_SessionOrigin: {fileID: 1927674086}
+  m_GameUIDocument: {fileID: 1742969429}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
