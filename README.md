@@ -18,9 +18,3 @@ We will build a project that can deploy to both desktop and ARKit platforms. Des
 Link to iOS
 Link to Mac store
 Link to Windows
-
-![Navigating in Editor](https://gblobscdn.gitbook.com/assets%2F-MPeyID8jdArWRKTskW0%2F-MR6m1FcHAUnkjukTJ7w%2F-MR6m6LwmsEvtJkIiXsS%2FUI%20-%20NavigatingScenes%20-%20Final%20Overview.gif)
-
-![AR player getting shot down by desktop player](https://gblobscdn.gitbook.com/assets%2F-MPeyID8jdArWRKTskW0%2F-MSQkTQw9V8jcjeUZLbU%2F-MSQk_ChKcD34qcuPQvM%2FARFoundation%20-%20Updating%20UI%20-%20Getting%20shot%20down%20by%20desktop.gif)
-
-![Desktop player shooting down AR player](https://drive.google.com/file/d/11lJPEISnIAGerIjFdHRCsD18TPwuMDRH/view?usp=sharing)
