@@ -23,4 +23,4 @@ Link to Windows
 
 ![AR player getting shot down by desktop player](https://gblobscdn.gitbook.com/assets%2F-MPeyID8jdArWRKTskW0%2F-MSQkTQw9V8jcjeUZLbU%2F-MSQk_ChKcD34qcuPQvM%2FARFoundation%20-%20Updating%20UI%20-%20Getting%20shot%20down%20by%20desktop.gif)
 
-![Desktop player shooting down AR palyer](https://gblobscdn.gitbook.com/assets%2F-MPeyID8jdArWRKTskW0%2F-MSQkTQw9V8jcjeUZLbU%2F-MSQkWsGeth5AFZOJPkL%2FARFoundation%20-%20Updating%20UI%20-%20Shooting%20down%20AR%20palyer.gif)
+![Desktop player shooting down AR palyer](https://gblobscdn.gitbook.com/assets%2F-MPeyID8jdArWRKTskW0%2F-MSQkTQw9V8jcjeUZLbU%2F-MSQkWsGeth5AFZOJPkL%2FARFoundation%20-%20Updating%20UI%20-%20Shooting%20down%20AR%20palyer.gif?alt=media&token=2a77b60e-b584-46fb-bcdc-34295475eec6)
