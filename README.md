@@ -1,4 +1,4 @@
-# Unity-DOTS-Multiplayer-XR-Sample
+# Unity DOTS Multiplayer XR Sample
 Sample project with stable Unity, Entities, Physics, NetCode, UI Builder, UI Toolkit and Multiplayer
 
 At Moetsi we work on Reality Modeling technology . A lot of our use-cases require both desktop and "live" (AR) client networking. We create and stream updated Reality Models in real-time to connected clients, which is data-intensive.
