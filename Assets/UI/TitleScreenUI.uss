@@ -89,6 +89,7 @@
 .section-title-container {
     width: 100%;
     margin-top: 100px;
+    display: none;
 }
 
 .section-title {
@@ -159,9 +160,9 @@
     padding-top: 0;
     padding-bottom: 0;
     width: 100%;
-    height: 120px;
+    height: 68px;
     color: rgb(160, 194, 114);
-    font-size: 36px;
+    font-size: 24px;
     background-color: rgba(0, 0, 0, 0);
     border-left-color: rgb(160, 194, 114);
     border-right-color: rgb(160, 194, 114);
@@ -304,10 +305,11 @@
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    margin-top: 40px;
 }
 
 .local-games-list {
@@ -322,7 +324,7 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    font-size: 36px;
+    font-size: 18px;
 }
 
 .HostGameScreen {
@@ -380,4 +382,13 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.top-data-section {
+    margin-top: 100px;
+}
+
+.blue-join-game-button {
+    height: 120px;
+    margin-top: 60px;
 }

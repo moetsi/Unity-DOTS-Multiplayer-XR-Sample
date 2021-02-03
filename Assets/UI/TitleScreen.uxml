@@ -8,12 +8,18 @@
             </ui:VisualElement>
             <ui:VisualElement name="main-content" class="main-content">
                 <ui:Label text="3D XR Asteroids" name="title" class="title" />
+                <ui:Button name="join-moetsi-server" class="button green-button" style="flex-wrap: nowrap; justify-content: center; align-items: center; flex-direction: row; height: 85px; margin-top: 60px;">
+                    <ui:VisualElement style="width: 40px; height: 60%; background-image: url(&apos;/Assets/UI/Moetsi Icon.svg&apos;); -unity-background-scale-mode: scale-to-fit;" />
+                    <ui:Label text="Play on Moetsi&apos;s Dedicated Server" style="color: rgb(160, 194, 114); margin-left: 20px;" />
+                </ui:Button>
                 <ui:VisualElement name="join-local-title" class="section-title-container">
                     <ui:Label text="Join A Local Game" name="join-a-local-game" class="section-title" />
                 </ui:VisualElement>
-                <ui:VisualElement name="local-games-list-container" class="local-games-list-container">
-                    <ui:ListView name="local-games-list" item-height="100" class="local-games-list" />
+                <ui:VisualElement name="local-games-list-container" class="local-games-list-container" style="height: 150px;">
+                    <ui:Label text="No local games detected&#10;Must be on same WiFi to detect local game" display-tooltip-when-elided="true" name="no-local-games-label" style="-unity-text-align: upper-center; color: rgb(150, 191, 208); font-size: 18px;" />
+                    <ui:ListView name="local-games-list" item-height="100" class="local-games-list" style="display: none;" />
                 </ui:VisualElement>
+                <ui:Label text="Or" name="or" class="or" />
                 <ui:Button text="Connect to a Local Game" name="manual-connect" class="button blue-button" />
                 <ui:Label text="Or" name="or" class="or" />
                 <ui:Button text="Host A Local Game" name="host-local-game" class="button green-button" />

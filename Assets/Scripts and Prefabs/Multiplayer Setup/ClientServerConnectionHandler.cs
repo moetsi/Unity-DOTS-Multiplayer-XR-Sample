@@ -135,12 +135,15 @@ public class ClientServerConnectionHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //The client checks if the NCE has a NetworkStreamDisconnected component
-        //If it does we act like they quit the game manually
-        if(m_ClientDisconnectedNCEQuery.IsEmptyIgnoreFilter)
-            return;
-        else
-            ClickedQuitGame();
+        if (m_ClientWorld != null)
+        {
+            //The client checks if the NCE has a NetworkStreamDisconnected component
+            //If it does we act like they quit the game manually
+            if(m_ClientDisconnectedNCEQuery.IsEmptyIgnoreFilter)
+                return;
+            else
+                ClickedQuitGame();
+        }
     }
 
    //This function will navigate us to NavigationScene and connected with the clients/server about leaving

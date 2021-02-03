@@ -24,6 +24,7 @@ public class ClientServerLauncher : MonoBehaviour
     public UIDocument m_TitleUIDocument;
     private VisualElement m_titleScreenManagerVE;
     //These variables we will set by querying the parent UI Document
+    private MoetsiScreen m_MoetsiScreen;
     private HostGameScreen m_HostGameScreen;
     private JoinGameScreen m_JoinGameScreen;
     private ManualConnectScreen m_ManualConnectScreen;
@@ -41,16 +42,21 @@ public class ClientServerLauncher : MonoBehaviour
     public Label m_GameIpLabel;
     public TextField m_PlayerName;
 
+    //Moetsi Server IP
+    public string m_MoetsiIPAddress = "40.76.203.69";
 
     void OnEnable()
     {
 
         //Here we set our variables for our different views so we can then add call backs to their buttons
         m_titleScreenManagerVE = m_TitleUIDocument.rootVisualElement;
+        m_MoetsiScreen = m_titleScreenManagerVE.Q<MoetsiScreen>("MoetsiScreen");
         m_HostGameScreen = m_titleScreenManagerVE.Q<HostGameScreen>("HostGameScreen");
         m_JoinGameScreen = m_titleScreenManagerVE.Q<JoinGameScreen>("JoinGameScreen");
         m_ManualConnectScreen = m_titleScreenManagerVE.Q<ManualConnectScreen>("ManualConnectScreen");
 
+        //Join Game Screen callback
+        m_MoetsiScreen.Q("launch-join-moetsi-game")?.RegisterCallback<ClickEvent>(ev => ClickedJoinMoetsi());
         //Host Game Screen callback
         m_HostGameScreen.Q("launch-host-game")?.RegisterCallback<ClickEvent>(ev => ClickedHostGame());
         //Join Game Screen callback
@@ -66,6 +72,20 @@ public class ClientServerLauncher : MonoBehaviour
         //We are going to bundle it with the server launch object so it can broadcast at that information
         m_BroadcastIpAddress = GameBroadcasting.BroadcastIpAddress;
         m_BroadcastPort = GameBroadcasting.BroadcastPort;
+    }
+    void ClickedJoinMoetsi()
+    {
+        //we don't need to make a variable for player name for every view, just 1 and set which view
+        //we get it from OnClick (which is when we need it)
+        m_PlayerName = m_JoinGameScreen.Q<TextField>("player-name");
+
+        var playerName = m_PlayerName.value;
+
+        //When we click "Join Game" that means we want to be only a client
+        ClientLauncher(playerName, m_MoetsiIPAddress);
+
+        //This function will trigger the MainScene
+        StartGameScene();
     }
 
     void ClickedHostGame()
@@ -195,7 +215,7 @@ public class ClientServerLauncher : MonoBehaviour
 #endif
     }
 
-    void StartGameScene()
+    public void StartGameScene()
     {
         //Here we trigger MainScene
 #if UNITY_EDITOR

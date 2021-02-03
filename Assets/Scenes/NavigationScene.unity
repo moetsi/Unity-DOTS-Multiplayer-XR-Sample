@@ -264,6 +264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1556314540}
   - component: {fileID: 1556314539}
+  - component: {fileID: 1556314541}
   m_Layer: 0
   m_Name: ClientServerLauncher
   m_TagString: Untagged
@@ -287,6 +288,7 @@ MonoBehaviour:
   m_TitleUIDocument: {fileID: 1670768665}
   ServerLauncherObject: {fileID: 2478487610468133688, guid: 291dd1dbb236a45eaaff4dddf745e6ce, type: 3}
   ClientLauncherObject: {fileID: 2150024940712245742, guid: d37f98b6bd771445e818bba8e0561785, type: 3}
+  m_MoetsiIPAddress: 13.90.197.46
 --- !u!4 &1556314540
 Transform:
   m_ObjectHideFlags: 0
@@ -301,6 +303,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1556314541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556314538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 535fe76e6d5374a7781244cffe434840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ClientServerLauncher: {fileID: 1556314539}
+  m_GameName: Moetsi's Dedicated Server
 --- !u!1 &1670768664
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,6 +21,8 @@ public class LocalGamesFinder : MonoBehaviour
     //We can call any child from the parent, very convenient! But you must be mindful about being dilligent about
     //creating unique names or else you can get back several elements (which at times is the point of sharing a name)
     private ListView m_ListView;
+    //We will hide the "no local games detected" notice if we find a game
+    private Label m_NoLocalGamesLabel;
 
     //This is where we will store our received broadcast messages
     private List<ServerInfoObject> discoveredServerInfoObjects = new List<ServerInfoObject>();
@@ -52,6 +54,8 @@ public class LocalGamesFinder : MonoBehaviour
         m_titleScreenManagerClass = m_titleScreenManagerVE.Q<TitleScreenManager>("TitleScreenManager");
         //From within TitleScreenManager we query local-games-list by name
         m_ListView = m_titleScreenManagerVE.Q<ListView>("local-games-list");
+        //We grab the label to turn it off if we find a game
+        m_NoLocalGamesLabel = m_titleScreenManagerVE.Q<Label>("no-local-games-label");
 
     }
 
@@ -167,7 +171,18 @@ public class LocalGamesFinder : MonoBehaviour
             discoveredServerInfoObjects.Add(serverInfo);
             //We refresh our list to display the new data
             m_ListView.Refresh();
+            DisplayList();
+
+            
         }
+    }
+
+    void DisplayList()
+    {
+        //We show the games list
+        m_ListView.style.display = DisplayStyle.Flex;
+        //We hide the no games message
+        m_NoLocalGamesLabel.style.display = DisplayStyle.None;
     }
 
     //We must call the clean up function on UdpConnection or else the thread will keep running!

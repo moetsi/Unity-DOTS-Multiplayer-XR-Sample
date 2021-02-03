@@ -1,11 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:Template name="TitleScreen" src="TitleScreen.uxml" />
+    <ui:Template name="MoetsiScreen" src="MoetsiScreen.uxml" />
     <ui:Template name="HostGameScreen" src="HostGameScreen.uxml" />
     <ui:Template name="JoinGameScreen" src="JoinGameScreen.uxml" />
     <ui:Template name="ManualConnectScreen" src="ManualConnectScreen.uxml" />
     <Style src="TitleScreenUI.uss" />
     <TitleScreenManager name="TitleScreenManager" class="screen" style="left: auto; top: auto; position: relative; right: auto; bottom: auto;">
         <ui:Instance template="TitleScreen" name="TitleScreen" class="screen" />
+        <ui:Instance template="MoetsiScreen" name="MoetsiScreen" class="screen" style="display: none;" />
         <ui:Instance template="HostGameScreen" name="HostGameScreen" class="screen" style="display: none;" />
         <ui:Instance template="JoinGameScreen" name="JoinGameScreen" class="screen" style="display: none;" />
         <ui:Instance template="ManualConnectScreen" name="ManualConnectScreen" class="screen" style="display: none;" />

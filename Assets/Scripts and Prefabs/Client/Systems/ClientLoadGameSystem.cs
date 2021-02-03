@@ -35,6 +35,7 @@ public class ClientLoadGameSystem : SystemBase
         Entities
         .ForEach((Entity entity, in SendClientGameRpc request, in ReceiveRpcCommandRequestComponent requestSource) =>
         {
+            Debug.Log("received RPC");
             //This destroys the incoming RPC so the code is only run once
             commandBuffer.DestroyEntity(entity);
 
@@ -72,7 +73,8 @@ public class ClientLoadGameSystem : SystemBase
             //Next we add the RPC we want to send (SendServerGameLoadedRpc) and then we add
             //SendRpcCommandRequestComponent with our TargetConnection being the NCE with the server (which will send it to the server)
             var levelReq = commandBuffer.CreateEntity();
-            commandBuffer.AddComponent(levelReq, new SendServerGameLoadedRpc());
+            // commandBuffer.AddComponent(levelReq, new SendServerGameLoadedRpc());
+            commandBuffer.AddComponent(levelReq, new SendServerGameLoadedRpc2());
             commandBuffer.AddComponent(levelReq, new SendRpcCommandRequestComponent {TargetConnection = requestSource.SourceConnection});
 
             // this tells the server "This is my name and Id" which will be used for player score tracking

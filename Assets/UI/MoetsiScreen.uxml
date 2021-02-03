@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="TitleScreenUI.uss" />
     <ui:ScrollView class="screen">
-        <JoinGameScreen name="JoinGameScreen" class="screen JoinGameScreen">
+        <MoetsiScreen name="MoetsiScreen" class="screen JoinGameScreen">
             <ui:VisualElement name="header" class="header" style="height: 108px; top: 0;">
                 <ui:Button text="Back Button" display-tooltip-when-elided="True" name="back-button" class="quit-button main-menu-button" />
             </ui:VisualElement>
@@ -11,19 +11,19 @@
                     <ui:Label text="Join A Local Game" display-tooltip-when-elided="True" name="section-title" class="section-title" />
                 </ui:VisualElement>
                 <ui:VisualElement name="game-name-container" class="data-section top-data-section">
-                    <ui:Label text="ThereHostName" display-tooltip-when-elided="True" name="game-name" class="data-section-input" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
+                    <ui:Label text="Moetsi&apos;s Dedicated Server" display-tooltip-when-elided="True" name="game-name" class="data-section-input" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
                     <ui:Label text="Game Name" display-tooltip-when-elided="True" name="game-name-label" class="data-section-label" />
                 </ui:VisualElement>
-                <ui:VisualElement name="game-ip-container" class="data-section">
+                <ui:VisualElement name="game-ip-container" class="data-section" style="display: none;">
                     <ui:Label text="192.168.156" display-tooltip-when-elided="True" name="game-ip" class="data-section-input" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
                     <ui:Label text="Game&apos;s IP Address" display-tooltip-when-elided="True" name="game-ip-label" class="data-section-label" />
                 </ui:VisualElement>
-                <ui:VisualElement name="player-name-container" class="data-section">
+                <ui:VisualElement name="player-name-container" class="data-section" style="margin-top: 40px;">
                     <ui:TextField picking-mode="Ignore" value="PlayerNameValue" text="YourHostName" name="player-name" readonly="false" class="data-section-input" style="border-left-color: rgb(150, 191, 208); border-right-color: rgb(150, 191, 208); border-top-color: rgb(150, 191, 208); border-bottom-color: rgb(150, 191, 208);" />
                     <ui:Label text="Your Player Name" display-tooltip-when-elided="True" name="player-name-label" class="data-section-label" style="color: rgb(150, 191, 208);" />
                 </ui:VisualElement>
-                <ui:Button text="Join Game" display-tooltip-when-elided="True" name="launch-join-game" class="blue-button blue-join-game-button" style="height: 120px;" />
+                <ui:Button text="Join Game" display-tooltip-when-elided="True" name="launch-join-moetsi-game" class="blue-button blue-join-game-button" />
             </ui:VisualElement>
-        </JoinGameScreen>
+        </MoetsiScreen>
     </ui:ScrollView>
 </ui:UXML>

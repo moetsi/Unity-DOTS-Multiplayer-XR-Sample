@@ -46,6 +46,10 @@ public class ARPoseSampler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //If we do not have a client world, return
+        if (m_ClientWorld == null)
+            return;
+
         //We create a new Translation and Rotation from the transform of the GameObject
         //The GameObject Translation and Rotation is updated by the pose driver
         var arTranslation = new Translation {Value = transform.position};

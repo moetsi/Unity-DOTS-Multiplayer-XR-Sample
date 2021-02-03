@@ -5,6 +5,7 @@ using UnityEngine;
 using Unity.NetCode.Editor;
 #endif
 
+
 public class NetCodeBootstrap : ClientServerBootstrap
 {
     public override bool Initialize(string defaultWorldName)

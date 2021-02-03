@@ -10,7 +10,7 @@
                 <ui:VisualElement name="section-title-container" class="section-title-container">
                     <ui:Label text="Host a Local Game" display-tooltip-when-elided="True" name="section-title" class="section-title" style="color: rgb(160, 194, 114);" />
                 </ui:VisualElement>
-                <ui:VisualElement name="game-name-container" class="data-section">
+                <ui:VisualElement name="game-name-container" class="data-section top-data-section">
                     <ui:TextField picking-mode="Ignore" value="HostNameValue" text="GameName" name="game-name" class="data-section-input" />
                     <ui:Label text="Your Game Name" display-tooltip-when-elided="True" name="game-name-label" class="data-section-label" />
                 </ui:VisualElement>
@@ -22,7 +22,7 @@
                     <ui:TextField picking-mode="Ignore" value="PlayerNameValue" text="PlayerName" name="player-name" readonly="false" class="data-section-input" style="border-left-color: rgb(150, 191, 208); border-right-color: rgb(150, 191, 208); border-top-color: rgb(150, 191, 208); border-bottom-color: rgb(150, 191, 208);" />
                     <ui:Label text="Your Player Name" display-tooltip-when-elided="True" name="player-name-label" class="data-section-label" style="color: rgb(150, 191, 208);" />
                 </ui:VisualElement>
-                <ui:Button text="Host Game" display-tooltip-when-elided="True" name="launch-host-game" class="green-button" />
+                <ui:Button text="Host Game" display-tooltip-when-elided="True" name="launch-host-game" class="green-button blue-join-game-button" />
             </ui:VisualElement>
         </HostGameScreen>
     </ui:ScrollView>
