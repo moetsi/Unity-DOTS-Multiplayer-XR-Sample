@@ -7,12 +7,12 @@
             "$type": "Unity.Build.Classic.ClassicBuildProfile, Unity.Build.Classic",
             "$version": 1,
             "Platform": "linux",
-            "Configuration": 1
+            "Configuration": 3
         },
         {
             "$type": "Unity.Build.Classic.ClassicScriptingSettings, Unity.Build.Classic",
             "ScriptingBackend": 1,
-            "Il2CppCompilerConfiguration": 2,
+            "Il2CppCompilerConfiguration": 1,
             "UseIncrementalGC": false
         },
         {

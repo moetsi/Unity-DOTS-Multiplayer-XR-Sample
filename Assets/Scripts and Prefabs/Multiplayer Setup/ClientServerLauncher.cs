@@ -77,7 +77,7 @@ public class ClientServerLauncher : MonoBehaviour
     {
         //we don't need to make a variable for player name for every view, just 1 and set which view
         //we get it from OnClick (which is when we need it)
-        m_PlayerName = m_JoinGameScreen.Q<TextField>("player-name");
+        m_PlayerName = m_MoetsiScreen.Q<TextField>("player-name");
 
         var playerName = m_PlayerName.value;
 
