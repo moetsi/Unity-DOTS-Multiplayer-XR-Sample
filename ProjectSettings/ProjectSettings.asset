@@ -127,7 +127,8 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 0.1
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 4790525258180570556, guid: 0555b699771dc41d09090866b620ff22, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -590,7 +591,7 @@ PlayerSettings:
     Standalone: 1
     iPhone: 1
   il2cppCompilerConfiguration:
-    Standalone: 0
+    Standalone: 2
   managedStrippingLevel:
     Standalone: 0
     iPhone: 1

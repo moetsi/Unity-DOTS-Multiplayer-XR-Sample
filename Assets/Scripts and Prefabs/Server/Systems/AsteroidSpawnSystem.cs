@@ -58,7 +58,7 @@ public class AsteroidSpawnSystem : SystemBase
             EntityManager.DestroyEntity(m_AsteroidQuery);
             return;
         }
-        UnityEngine.Debug.Log("AsteroidSpawnSystem Update");
+        // UnityEngine.Debug.Log("AsteroidSpawnSystem Update");
 
         //Here we set the prefab we will use
         if (m_Prefab == Entity.Null)
@@ -90,7 +90,7 @@ public class AsteroidSpawnSystem : SystemBase
 
         Job
         .WithCode(() => {
-            UnityEngine.Debug.Log("AsteroidSpawnSystem WithCode");
+            // UnityEngine.Debug.Log("AsteroidSpawnSystem WithCode");
             for (int i = count; i < settings.numAsteroids; ++i)
             {
                 // this is how much within perimeter asteroids start

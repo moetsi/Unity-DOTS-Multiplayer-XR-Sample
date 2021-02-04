@@ -288,7 +288,7 @@ MonoBehaviour:
   m_TitleUIDocument: {fileID: 1670768665}
   ServerLauncherObject: {fileID: 2478487610468133688, guid: 291dd1dbb236a45eaaff4dddf745e6ce, type: 3}
   ClientLauncherObject: {fileID: 2150024940712245742, guid: d37f98b6bd771445e818bba8e0561785, type: 3}
-  m_MoetsiIPAddress: 13.90.197.46
+  m_MoetsiIPAddress: 40.76.203.69
 --- !u!4 &1556314540
 Transform:
   m_ObjectHideFlags: 0
