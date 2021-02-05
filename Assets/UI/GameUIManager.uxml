@@ -6,7 +6,7 @@
             <ui:VisualElement name="header" class="header game-ui-header">
                 <ui:Button text="Quit Game" name="quit-game" class="quit-game-button" />
                 <ui:VisualElement name="top-right-container" class="top-right-container">
-                    <ui:Label text="Frank&apos;s Game" name="game-name" class="top-right-values" />
+                    <ui:Label text="Loading Game..." name="game-name" class="top-right-values" />
                     <ui:Label text="GAME NAME" name="game-name-label" class="top-right-labels" />
                     <ui:VisualElement name="spacer" class="spacers" />
                     <ui:Label text="127.0.0.1" name="game-ip" class="top-right-values" />

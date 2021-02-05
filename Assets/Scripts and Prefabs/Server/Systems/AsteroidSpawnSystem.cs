@@ -51,7 +51,7 @@ public class AsteroidSpawnSystem : SystemBase
     
     protected override void OnUpdate()
     {
-        //Here we check the amount of connected clients
+        // //Here we check the amount of connected clients
         if (m_ConnectionGroup.IsEmptyIgnoreFilter)
         {
             // No connected players, just destroy all asteroids to save CPU

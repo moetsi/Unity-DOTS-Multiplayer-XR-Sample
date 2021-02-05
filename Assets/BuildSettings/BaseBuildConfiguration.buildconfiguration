@@ -3,7 +3,7 @@
     "Components": [
         {
             "$type": "Unity.Build.Common.GeneralSettings, Unity.Build",
-            "ProductName": "Sample",
+            "ProductName": "Asteroids XR",
             "CompanyName": "Moetsi",
             "Version": "1.0.0"
         },

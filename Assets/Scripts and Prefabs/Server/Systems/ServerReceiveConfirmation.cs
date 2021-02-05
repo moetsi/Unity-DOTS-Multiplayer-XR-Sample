@@ -32,7 +32,6 @@ public class ServerReceiveConfirmation : SystemBase
         Entities
         .ForEach((Entity entity, in SendServerGameLoadedRpc2 request, in ReceiveRpcCommandRequestComponent requestSource) =>
         {
-            Debug.Log("server received RPC");
             //This destroys the incoming RPC so the code is only run once
             commandBuffer.DestroyEntity(entity);
 

@@ -15,8 +15,8 @@ public class ServerOnlyLauncher : MonoBehaviour
         Application.targetFrameRate = 120;
 
 #if !UNITY_CLIENT || UNITY_SERVER || !UNITY_EDITOR
-        m_ClientServerLauncher.ServerLauncher(m_GameName);
-        m_ClientServerLauncher.StartGameScene();
+        // m_ClientServerLauncher.ServerLauncher(m_GameName);
+        // m_ClientServerLauncher.StartGameScene();
 #endif
 
     }

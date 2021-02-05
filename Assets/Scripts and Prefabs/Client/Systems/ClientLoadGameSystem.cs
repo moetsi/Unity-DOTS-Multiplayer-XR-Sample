@@ -35,7 +35,6 @@ public class ClientLoadGameSystem : SystemBase
         Entities
         .ForEach((Entity entity, in SendClientGameRpc request, in ReceiveRpcCommandRequestComponent requestSource) =>
         {
-            Debug.Log("received RPC");
             //This destroys the incoming RPC so the code is only run once
             commandBuffer.DestroyEntity(entity);
 
