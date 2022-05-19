@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &23850156214963642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1213722762658698636}
+  m_Layer: 0
+  m_Name: Bullet Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1213722762658698636
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23850156214963642}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5999064429482662803}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3340818497934073678
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,6 +240,7 @@ GameObject:
   - component: {fileID: 9048388025746292521}
   - component: {fileID: 4953926726578379611}
   - component: {fileID: 1235565912046285212}
+  - component: {fileID: 2223466960228654670}
   - component: {fileID: 6182803111029298199}
   m_Layer: 0
   m_Name: Player
@@ -232,6 +263,7 @@ Transform:
   - {fileID: 4120551472507438893}
   - {fileID: 6898301366351861776}
   - {fileID: 6035474886501820530}
+  - {fileID: 1213722762658698636}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -296,6 +328,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b15035fdcca6d941af9c0f5ec2e8dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2223466960228654670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6564344901984289449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d82981ae819838043b24630ff2347a88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawn: {fileID: 23850156214963642}
 --- !u!114 &6182803111029298199
 MonoBehaviour:
   m_ObjectHideFlags: 0

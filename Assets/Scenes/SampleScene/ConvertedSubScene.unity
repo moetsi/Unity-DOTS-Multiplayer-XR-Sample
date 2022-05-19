@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 1531231330}
   - component: {fileID: 1531231329}
   - component: {fileID: 1531231331}
+  - component: {fileID: 1531231332}
   m_Layer: 0
   m_Name: PrefabCollection
   m_TagString: Untagged
@@ -181,6 +182,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6564344901984289449, guid: 238def06460ba36408eb7b32bfd46da1, type: 3}
+--- !u!114 &1531231332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531231328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c7627e45832ae74c8d2afc6f123513b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 6567334583800254296, guid: 4f69a28f54d34d64fa3f83138edc820f, type: 3}
 --- !u!1 &1893497765
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   asteroidVelocity: 10
   playerForce: 10
-  bulletVelocity: 500
+  bulletVelocity: 20
   numAsteroids: 200
   levelWidth: 20
   levelHeight: 20
