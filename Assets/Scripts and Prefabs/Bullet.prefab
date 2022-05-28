@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5472888246918295315}
   - component: {fileID: 4272008653694008372}
   - component: {fileID: 7195930349427086280}
+  - component: {fileID: 5074867535311953545}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 37b25b1920432084583debdbc9f3ec66, type: 2}
+  - {fileID: 2100000, guid: c1b6416dc28490e4798f955604d46849, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -305,3 +306,15 @@ MonoBehaviour:
     Tag05: 0
     Tag06: 0
     Tag07: 0
+--- !u!114 &5074867535311953545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6567334583800254296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b1c4776a82ff0b4ab178254d3f264a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
