@@ -55,7 +55,7 @@ public partial class InputMovementSystem : SystemBase
 
         Entities
         .WithAll<PlayerTag>()
-        .ForEach((Entity entity, int nativeThreadIndex, ref Rotation rotation, ref PhysicsVelocity velocity) =>
+        .ForEach((Entity entity, ref Rotation rotation, ref PhysicsVelocity velocity) =>
         {
             if (right == 1)
             {   //thrust to the right of where the player is facing
