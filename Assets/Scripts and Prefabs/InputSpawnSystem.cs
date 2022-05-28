@@ -90,13 +90,13 @@ public partial class InputSpawnSystem : SystemBase
 
         Entities
         .WithAll<PlayerTag>()
-        .ForEach((Entity entity, int nativeThreadIndex, in Translation position, in Rotation rotation,
+        .ForEach((Entity entity, int entityInQueryIndex, in Translation position, in Rotation rotation,
                 in VelocityComponent velocity, in BulletSpawnOffsetComponent bulletOffset) =>
         {
             //If self-destruct was pressed we will add a DestroyTag to the player entity
             if(selfDestruct == 1)
             {
-                commandBuffer.AddComponent(nativeThreadIndex, entity, new DestroyTag {});
+                commandBuffer.AddComponent(entityInQueryIndex, entity, new DestroyTag {});
             }
             //If we don't have space bar pressed we don't have anything to do
             if (shoot != 1 || !canShoot)
@@ -105,20 +105,20 @@ public partial class InputSpawnSystem : SystemBase
             }
             
             // We create the bullet here
-            var bulletEntity = commandBuffer.Instantiate(nativeThreadIndex, bulletPrefab);
+            var bulletEntity = commandBuffer.Instantiate(entityInQueryIndex, bulletPrefab);
             
             //we set the bullets position as the player's position + the bullet spawn offset
             //math.mul(rotation.Value,bulletOffset.Value) finds the position of the bullet offset in the given rotation
             //think of it as finding the LocalToParent of the bullet offset (because the offset needs to be rotated in the players direction)
             var newPosition = new Translation {Value = position.Value + math.mul(rotation.Value, bulletOffset.Value).xyz};
-            commandBuffer.SetComponent(nativeThreadIndex, bulletEntity, newPosition);
+            commandBuffer.SetComponent(entityInQueryIndex, bulletEntity, newPosition);
 
 
             // bulletVelocity * math.mul(rotation.Value, new float3(0,0,1)).xyz) takes linear direction of where facing and multiplies by velocity
             // adding to the players physics Velocity makes sure that it takes into account the already existing player velocity (so if shoot backwards while moving forwards it stays in place)
             var vel = new VelocityComponent {Value = (gameSettings.bulletVelocity * math.mul(rotation.Value, new float3(0,0,1)).xyz) + velocity.Value};
 
-            commandBuffer.SetComponent(nativeThreadIndex, bulletEntity, vel);
+            commandBuffer.SetComponent(entityInQueryIndex, bulletEntity, vel);
 
         }).ScheduleParallel();
         
