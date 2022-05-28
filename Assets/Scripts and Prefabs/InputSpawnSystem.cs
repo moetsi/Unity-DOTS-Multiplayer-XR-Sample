@@ -91,13 +91,8 @@ public partial class InputSpawnSystem : SystemBase
 
         Entities
         .WithAll<PlayerTag>()
-<<<<<<< HEAD
         .ForEach((Entity entity, int entityInQueryIndex, in Translation position, in Rotation rotation,
                 in PhysicsVelocity velocity, in BulletSpawnOffsetComponent bulletOffset) =>
-=======
-        .ForEach((Entity entity, int entityInQueryIndex, in Translation position, in Rotation rotation,
-                in VelocityComponent velocity, in BulletSpawnOffsetComponent bulletOffset) =>
->>>>>>> Building-the-Project
         {
             //If self destruct was pressed we will add a DestroyTag to the player entity
             if(selfDestruct == 1)
