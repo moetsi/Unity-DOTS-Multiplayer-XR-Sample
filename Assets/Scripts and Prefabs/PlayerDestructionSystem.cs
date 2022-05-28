@@ -31,9 +31,9 @@ public partial class PlayerDestructionSystem : SystemBase
         //if different entities are destroyed, so we made this one specifically for Players
         Entities
         .WithAll<DestroyTag, PlayerTag>()
-        .ForEach((Entity entity, int nativeThreadIndex) =>
+        .ForEach((Entity entity, int entityInQueryIndex) =>
         {
-            commandBuffer.DestroyEntity(nativeThreadIndex, entity);
+            commandBuffer.DestroyEntity(entityInQueryIndex, entity);
 
         }).WithBurst().ScheduleParallel();
 

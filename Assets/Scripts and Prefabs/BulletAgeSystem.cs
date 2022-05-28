@@ -21,11 +21,11 @@ public partial class BulletAgeSystem : SystemBase
         //Our query writes to the BulletAgeComponent
         //The reason we don't need to add .WithAll<BulletTag>() here is because referencing the BulletAgeComponent
         //requires the Entities to have a BulletAgeComponent and only Bullets have those
-        Entities.ForEach((Entity entity, int nativeThreadIndex, ref BulletAgeComponent age) =>
+        Entities.ForEach((Entity entity, int entityInQueryIndex, ref BulletAgeComponent age) =>
         {
             age.age += deltaTime;
             if (age.age > age.maxAge)
-                commandBuffer.DestroyEntity(nativeThreadIndex, entity);
+                commandBuffer.DestroyEntity(entityInQueryIndex, entity);
 
         }).ScheduleParallel();
         m_BeginSimEcb.AddJobHandleForProducer(Dependency);
