@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 using Unity.Burst;
+using Unity.Physics;
 
 public partial class InputSpawnSystem : SystemBase
 {
@@ -91,9 +92,9 @@ public partial class InputSpawnSystem : SystemBase
         Entities
         .WithAll<PlayerTag>()
         .ForEach((Entity entity, int nativeThreadIndex, in Translation position, in Rotation rotation,
-                in VelocityComponent velocity, in BulletSpawnOffsetComponent bulletOffset) =>
+                in PhysicsVelocity velocity, in BulletSpawnOffsetComponent bulletOffset) =>
         {
-            //If self-destruct was pressed we will add a DestroyTag to the player entity
+            //If self destruct was pressed we will add a DestroyTag to the player entity
             if(selfDestruct == 1)
             {
                 commandBuffer.AddComponent(nativeThreadIndex, entity, new DestroyTag {});
@@ -116,7 +117,7 @@ public partial class InputSpawnSystem : SystemBase
 
             // bulletVelocity * math.mul(rotation.Value, new float3(0,0,1)).xyz) takes linear direction of where facing and multiplies by velocity
             // adding to the players physics Velocity makes sure that it takes into account the already existing player velocity (so if shoot backwards while moving forwards it stays in place)
-            var vel = new VelocityComponent {Value = (gameSettings.bulletVelocity * math.mul(rotation.Value, new float3(0,0,1)).xyz) + velocity.Value};
+            var vel = new PhysicsVelocity {Linear = (gameSettings.bulletVelocity * math.mul(rotation.Value, new float3(0,0,1)).xyz) + velocity.Linear};
 
             commandBuffer.SetComponent(nativeThreadIndex, bulletEntity, vel);
 

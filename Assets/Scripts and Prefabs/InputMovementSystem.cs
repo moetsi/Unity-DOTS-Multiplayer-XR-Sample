@@ -4,6 +4,7 @@ using Unity.Transforms;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
+using Unity.Physics;
 
 public partial class InputMovementSystem : SystemBase
 {
@@ -54,23 +55,23 @@ public partial class InputMovementSystem : SystemBase
 
         Entities
         .WithAll<PlayerTag>()
-        .ForEach((Entity entity, int nativeThreadIndex, ref Rotation rotation, ref VelocityComponent velocity) =>
+        .ForEach((Entity entity, int nativeThreadIndex, ref Rotation rotation, ref PhysicsVelocity velocity) =>
         {
             if (right == 1)
             {   //thrust to the right of where the player is facing
-                velocity.Value += (math.mul(rotation.Value, new float3(1,0,0)).xyz) * gameSettings.playerForce * deltaTime;
+                velocity.Linear += (math.mul(rotation.Value, new float3(1,0,0)).xyz) * gameSettings.playerForce * deltaTime;
             }
             if (left == 1)
             {   //thrust to the left of where the player is facing
-                velocity.Value += (math.mul(rotation.Value, new float3(-1,0,0)).xyz) * gameSettings.playerForce * deltaTime;
+                velocity.Linear += (math.mul(rotation.Value, new float3(-1,0,0)).xyz) * gameSettings.playerForce * deltaTime;
             }
             if (thrust == 1)
             {   //thrust forward of where the player is facing
-                velocity.Value += (math.mul(rotation.Value, new float3(0,0,1)).xyz) * gameSettings.playerForce * deltaTime;
+                velocity.Linear += (math.mul(rotation.Value, new float3(0,0,1)).xyz) * gameSettings.playerForce * deltaTime;
             }
             if (reverseThrust == 1)
             {   //thrust backwards of where the player is facing
-                velocity.Value += (math.mul(rotation.Value, new float3(0,0,-1)).xyz) *  gameSettings.playerForce * deltaTime;
+                velocity.Linear += (math.mul(rotation.Value, new float3(0,0,-1)).xyz) *  gameSettings.playerForce * deltaTime;
             }
             if (mouseX != 0 || mouseY != 0)
             {   //move the mouse
