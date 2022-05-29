@@ -5,6 +5,12 @@ using Unity.Mathematics;
 using Unity.Jobs;
 using Unity.Transforms;
 using UnityEngine;
+using Unity.NetCode;
+
+
+//We cannot use [UpdateInGroup(typeof(ServerSimulationSystemGroup))] because we already have a group defined
+//So we specify instead what world the system must run, ServerWorld
+[UpdateInWorld(TargetWorld.Server)]
 //We are adding this system within the FixedStepSimulationGroup
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 [UpdateBefore(typeof(EndFixedStepSimulationEntityCommandBufferSystem))] 
@@ -16,10 +22,12 @@ public partial class AsteroidsOutOfBoundsSystem : SystemBase
     //The FixedStepSimGroup has its own EntityCommandBufferSystem we will use to make the structural change
     //of adding the DestroyTag
     private EndFixedStepSimulationEntityCommandBufferSystem m_EndFixedStepSimECB;
+    
     protected override void OnCreate()
     {
         //We grab the EndFixedStepSimECB for our OnUpdate
         m_EndFixedStepSimECB = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
+        
         //We want to make sure we don't update until we have our GameSettingsComponent
         //because we need the data from this component to know where the perimeter of our cube is
         RequireSingletonForUpdate<GameSettingsComponent>();
@@ -30,14 +38,16 @@ public partial class AsteroidsOutOfBoundsSystem : SystemBase
         //We want to run this as parallel jobs so we need to add "AsParallelWriter" when creating
         //our command buffer
         var commandBuffer = m_EndFixedStepSimECB.CreateCommandBuffer().AsParallelWriter();
+
         //We must declare our local variables that we will use in our job
         var settings = GetSingleton<GameSettingsComponent>();
+
         //This time we query entities with components by using "WithAll" tag
         //This makes sure that we only grab entities with an AsteroidTag component so we don't affect other entities
         //that might have passed the perimeter of the cube  
         Entities
         .WithAll<AsteroidTag>()
-        .ForEach((Entity entity, int entityInQueryIndex, in Translation position) =>
+        .ForEach((Entity entity, int nativeThreadIndex, in Translation position) =>
         {
             //We check if the current Translation value is out of bounds
             if (Mathf.Abs(position.Value.x) > settings.levelWidth/2 ||
@@ -45,11 +55,14 @@ public partial class AsteroidsOutOfBoundsSystem : SystemBase
                 Mathf.Abs(position.Value.z) > settings.levelDepth/2)
             {
                 //If it is out of bounds wee add the DestroyTag component to the entity and return
-                commandBuffer.AddComponent(entityInQueryIndex, entity, new DestroyTag());
+                commandBuffer.AddComponent(nativeThreadIndex, entity, new DestroyTag());
                 return;
             }
+
         }).ScheduleParallel();
+
         //We add the dependencies to the CommandBuffer that will be playing back these structural changes (adding a DestroyTag)
         m_EndFixedStepSimECB.AddJobHandleForProducer(Dependency);
+    
     }
 }
