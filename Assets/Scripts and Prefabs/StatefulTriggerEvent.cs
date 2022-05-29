@@ -4,7 +4,7 @@ using Unity.Assertions;
 namespace Unity.Physics.Stateful
 {
     // Trigger Event that can be stored inside a DynamicBuffer
-    public struct StatefulTriggerEvent : IBufferElementData, IStatefulSimulationEvent<StatefulTriggerEvent>
+    public struct StatefulTriggerEvent : IStatefulSimulationEvent<StatefulTriggerEvent>
     {
         public Entity EntityA { get; set; }
         public Entity EntityB { get; set; }

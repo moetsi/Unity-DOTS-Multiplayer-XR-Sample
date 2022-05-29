@@ -102,6 +102,16 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.netcode": {
+      "version": "0.50.1-preview.19",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.transport": "1.0.0-pre.15",
+        "com.unity.entities": "0.50.1-preview.2"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.nuget.mono-cecil": {
       "version": "1.10.1",
       "depth": 2,
@@ -297,6 +307,17 @@
         "com.unity.modules.animation": "1.0.0",
         "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.transport": {
+      "version": "1.0.0-pre.15",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.collections": "1.1.0",
+        "com.unity.burst": "1.6.4",
+        "com.unity.mathematics": "1.2.5"
       },
       "url": "https://packages.unity.com"
     },

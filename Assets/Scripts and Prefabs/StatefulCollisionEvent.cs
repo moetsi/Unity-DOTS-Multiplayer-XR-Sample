@@ -5,7 +5,7 @@ using Unity.Mathematics;
 namespace Unity.Physics.Stateful
 {
     // Collision Event that can be stored inside a DynamicBuffer
-    public struct StatefulCollisionEvent : IBufferElementData, IStatefulSimulationEvent<StatefulCollisionEvent>
+    public struct StatefulCollisionEvent : IStatefulSimulationEvent<StatefulCollisionEvent>
     {
         public Entity EntityA { get; set; }
         public Entity EntityB { get; set; }
