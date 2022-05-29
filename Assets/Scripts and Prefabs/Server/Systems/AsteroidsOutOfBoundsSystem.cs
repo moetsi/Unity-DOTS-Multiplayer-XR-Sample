@@ -13,7 +13,7 @@ using Unity.NetCode;
 [UpdateInWorld(TargetWorld.Server)]
 //We are adding this system within the FixedStepSimulationGroup
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-[UpdateBefore(typeof(EndFixedStepSimulationEntityCommandBufferSystem))] 
+[UpdateBefore(typeof(EndFixedStepSimulationEntityCommandBufferSystem))]
 public partial class AsteroidsOutOfBoundsSystem : SystemBase
 {
     //We are going to use the EndFixedStepSimECB
@@ -47,7 +47,7 @@ public partial class AsteroidsOutOfBoundsSystem : SystemBase
         //that might have passed the perimeter of the cube  
         Entities
         .WithAll<AsteroidTag>()
-        .ForEach((Entity entity, int nativeThreadIndex, in Translation position) =>
+        .ForEach((Entity entity, int entityInQueryIndex, in Translation position) =>
         {
             //We check if the current Translation value is out of bounds
             if (Mathf.Abs(position.Value.x) > settings.levelWidth/2 ||
@@ -55,7 +55,7 @@ public partial class AsteroidsOutOfBoundsSystem : SystemBase
                 Mathf.Abs(position.Value.z) > settings.levelDepth/2)
             {
                 //If it is out of bounds wee add the DestroyTag component to the entity and return
-                commandBuffer.AddComponent(nativeThreadIndex, entity, new DestroyTag());
+                commandBuffer.AddComponent(entityInQueryIndex, entity, new DestroyTag());
                 return;
             }
 

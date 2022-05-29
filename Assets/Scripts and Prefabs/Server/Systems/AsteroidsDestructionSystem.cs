@@ -35,9 +35,9 @@ public partial class AsteroidsDestructionSystem : SystemBase
         //if different entities are destroyed, so we made this one specifically for Asteroids
         Entities
         .WithAll<DestroyTag, AsteroidTag>()
-        .ForEach((Entity entity, int nativeThreadIndex) =>
+        .ForEach((Entity entity, int entityInQueryIndex) =>
         {
-            commandBuffer.DestroyEntity(nativeThreadIndex, entity);
+            commandBuffer.DestroyEntity(entityInQueryIndex, entity);
 
         }).ScheduleParallel();
 
