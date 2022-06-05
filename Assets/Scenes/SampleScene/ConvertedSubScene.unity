@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311926, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 1531231329}
   - component: {fileID: 1531231331}
   - component: {fileID: 1531231332}
+  - component: {fileID: 1531231333}
   m_Layer: 0
   m_Name: PrefabCollection
   m_TagString: Untagged
@@ -195,6 +196,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6567334583800254296, guid: 4f69a28f54d34d64fa3f83138edc820f, type: 3}
+--- !u!114 &1531231333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531231328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69d92bc5dedd413bb9136dc2260b617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 2577390833698829640, guid: ca49a7abcacd64ef284911a6cab8252e, type: 3}
 --- !u!1 &1893497765
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   asteroidVelocity: 2
-  playerForce: 10
+  playerForce: 20
   bulletVelocity: 20
   numAsteroids: 200
   levelWidth: 40
