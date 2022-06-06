@@ -219,6 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1893497766}
   - component: {fileID: 1893497767}
+  - component: {fileID: 1893497768}
   m_Layer: 0
   m_Name: GameSettings
   m_TagString: Untagged
@@ -259,3 +260,17 @@ MonoBehaviour:
   levelWidth: 40
   levelHeight: 40
   levelDepth: 40
+--- !u!114 &1893497768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893497765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a684f61b0c5d64b5988d9492c5159d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  predictionRadius: 5
+  predictionRadiusMargin: 1
