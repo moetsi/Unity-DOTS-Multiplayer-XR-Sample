@@ -2,6 +2,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Physics.Stateful;
+using Unity.Physics.Systems;
 using Unity.Rendering;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ using UnityEngine;
 //and the TriggerVolumeChangeMaterial component
 
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-[UpdateAfter(typeof(StatefulTriggerEventBufferSystem))]
+[UpdateAfter(typeof(ExportPhysicsWorld))]
 public partial class ChangeMaterialAndDestroySystem : SystemBase
 {
     private EndFixedStepSimulationEntityCommandBufferSystem m_CommandBufferSystem;

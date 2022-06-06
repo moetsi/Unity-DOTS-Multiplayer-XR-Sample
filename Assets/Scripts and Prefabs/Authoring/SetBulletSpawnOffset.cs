@@ -8,7 +8,7 @@ public class SetBulletSpawnOffset : UnityEngine.MonoBehaviour, IConvertGameObjec
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        var bulletOffset = default(BulletSpawnOffsetComponent);
+        var bulletOffset = default(PlayerStateAndOffsetComponent);
 
         var offsetVector = bulletSpawn.transform.position;
         bulletOffset.Value = new float3(offsetVector.x, offsetVector.y, offsetVector.z);        

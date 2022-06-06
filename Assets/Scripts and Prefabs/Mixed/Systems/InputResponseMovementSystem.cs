@@ -5,12 +5,17 @@ using Unity.NetCode;
 using Unity.Networking.Transport.Utilities;
 using Unity.Collections;
 using Unity.Physics;
+using Unity.Physics.Systems;
 using Unity.Jobs;
 using UnityEngine;
 
 //InputResponseMovementSystem runs on both the Client and Server
 //It is predicted on the client but "decided" on the server
-[UpdateInWorld(TargetWorld.ClientAndServer)] 
+[UpdateInWorld(TargetWorld.ClientAndServer)]
+[UpdateInGroup(typeof(PredictedPhysicsSystemGroup))]
+// want to change the Velocity BEFORE the physics is run (which happens after BuildPhysicsWorld)
+// so it is not like the input had no affect on the player for a frame), so we run before BuildPhysicsWorld
+[UpdateBefore(typeof(BuildPhysicsWorld))]
 public partial class InputResponseMovementSystem : SystemBase
 {
     //This is a special NetCode group that provides a "prediction tick" and a fixed "DeltaTime"

@@ -13,10 +13,6 @@ public partial class InputSystem : SystemBase
     //We need this sytem group so we can grab its "ServerTick" for prediction when we respond to Commands
     private ClientSimulationSystemGroup m_ClientSimulationSystemGroup;
 
-    //We are going to use this to rate limit bullets per second
-    //We could have included this in the game settings, no "ECS reason" not to
-    private float m_PerSecond = 10f;
-    private float m_NextTime = 0;
     //We use this for thin client command generation
     private int m_FrameCount;
 
@@ -110,14 +106,6 @@ public partial class InputSystem : SystemBase
                 m_FrameCount = 0;
             }
         }
-        
-        //we are going to implement rate limiting for shooting
-        var canShoot = false;
-        if (UnityEngine.Time.time >= m_NextTime)
-        {
-            canShoot = true;
-            m_NextTime += (1/m_PerSecond);
-        }
 
         //We are sending the simulationsystemgroup tick so the server can playback our commands appropriately
         var inputTargetTick = m_ClientSimulationSystemGroup.ServerTick;    
@@ -147,11 +135,6 @@ public partial class InputSystem : SystemBase
         }
         else
         {
-            if (shoot == 1 && canShoot)
-                shoot = 1;
-            else
-                shoot = 0;
-
             var input = inputFromEntity[targetEntity];
             input.AddCommandData(new PlayerCommand{Tick = inputTargetTick, left = left, right = right, thrust = thrust, reverseThrust = reverseThrust,
                 selfDestruct = selfDestruct, shoot = shoot,

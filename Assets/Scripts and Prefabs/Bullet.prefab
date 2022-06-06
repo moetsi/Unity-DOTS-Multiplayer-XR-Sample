@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4272008653694008372}
   - component: {fileID: 7195930349427086280}
   - component: {fileID: 5074867535311953545}
+  - component: {fileID: 3874816163342726976}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -318,3 +319,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1c4776a82ff0b4ab178254d3f264a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3874816163342726976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6567334583800254296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c79d771cedb4794bf100ce60df5f764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultGhostMode: 2
+  SupportedGhostModes: 3
+  OptimizationMode: 0
+  Importance: 1
+  prefabId: 4f69a28f54d34d64fa3f83138edc820f
+  Name: Bullet
+  HasOwner: 1
+  SupportAutoCommandTarget: 0
+  UsePreSerialization: 0
+  RefGameObjects: []
+  RefGuids: 
+  ComponentNames: []
+  PrefabTypeOverrides: []
+  SendTypeOverrides: []
+  VariantOverrides: []
+  SendForChild: []
