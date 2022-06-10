@@ -12,7 +12,8 @@ using UnityEngine;
 //InputResponseMovementSystem runs on both the Client and Server
 //It is predicted on the client but "decided" on the server
 [UpdateInWorld(TargetWorld.ClientAndServer)]
-[UpdateInGroup(typeof(PredictedPhysicsSystemGroup))]
+// [UpdateInGroup(typeof(PredictedPhysicsSystemGroup))]
+ [UpdateInGroup(typeof(Unity.NetCode.PredictedPhysicsSystemGroup))]
 // want to change the Velocity BEFORE the physics is run (which happens after BuildPhysicsWorld)
 // so it is not like the input had no affect on the player for a frame), so we run before BuildPhysicsWorld
 [UpdateBefore(typeof(BuildPhysicsWorld))]
