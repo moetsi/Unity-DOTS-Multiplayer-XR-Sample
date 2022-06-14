@@ -12,8 +12,7 @@ using UnityEngine;
 //InputResponseMovementSystem runs on both the Client and Server
 //It is predicted on the client but "decided" on the server
 [UpdateInWorld(TargetWorld.ClientAndServer)]
- [UpdateInGroup(typeof(Unity.NetCode.PredictedPhysicsSystemGroup))]
-// [UpdateInGroup(typeof(PredictedPhysicsSystemGroup))]
+ [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 [UpdateAfter(typeof(ExportPhysicsWorld))]
 public partial class InputResponseSpawnSystem : SystemBase
 {
