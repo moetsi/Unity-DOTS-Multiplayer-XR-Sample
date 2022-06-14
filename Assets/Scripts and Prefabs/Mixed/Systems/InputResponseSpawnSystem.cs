@@ -9,10 +9,10 @@ using Unity.Physics.Systems;
 using Unity.Jobs;
 using UnityEngine;
 
-//InputResponseMovementSystem runs on both the Client and Server
+//InputResponseSpawntSystem runs on both the Client and Server
 //It is predicted on the client but "decided" on the server
 [UpdateInWorld(TargetWorld.ClientAndServer)]
-[UpdateInGroup(typeof(PredictedPhysicsSystemGroup))]
+[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 [UpdateAfter(typeof(ExportPhysicsWorld))]
 public partial class InputResponseSpawnSystem : SystemBase
 {
@@ -77,7 +77,7 @@ public partial class InputResponseSpawnSystem : SystemBase
         Entities
         .WithReadOnly(inputFromEntity)
         .WithAll<PlayerTag, PlayerCommand>()
-        .ForEach((Entity entity, int nativeThreadIndex, ref PlayerStateAndOffsetComponent bulletOffset, in Rotation rotation, in Translation position, in PhysicsVelocity velocityComponent,
+        .ForEach((Entity entity, int entityInQueryIndex, ref PlayerStateAndOffsetComponent bulletOffset, in Rotation rotation, in Translation position, in PhysicsVelocity velocityComponent,
                 in GhostOwnerComponent ghostOwner, in PredictedGhostComponent prediction) =>
         {
             //Here we check if we SHOULD do the prediction based on the tick, if we shouldn't, we return
@@ -97,16 +97,16 @@ public partial class InputResponseSpawnSystem : SystemBase
             //Here we add the destroy tag to the player if the self-destruct button was pressed
             if (inputData.selfDestruct == 1)
             {  
-                commandBuffer.AddComponent<DestroyTag>(nativeThreadIndex, entity);
+                commandBuffer.AddComponent<DestroyTag>(entityInQueryIndex, entity);
             }
 
             var canShoot = bulletOffset.WeaponCooldown == 0 || SequenceHelpers.IsNewer(currentTick, bulletOffset.WeaponCooldown);
             if (inputData.shoot != 0 && canShoot)
             {
                 // We create the bullet here
-                var bullet = commandBuffer.Instantiate(nativeThreadIndex, bulletPrefab);
+                var bullet = commandBuffer.Instantiate(entityInQueryIndex, bulletPrefab);
                 //We declare it as a predicted spawning for player spawned objects by adding a special component
-                commandBuffer.AddComponent(nativeThreadIndex, bullet, new PredictedGhostSpawnRequestComponent());
+                commandBuffer.AddComponent(entityInQueryIndex, bullet, new PredictedGhostSpawnRequestComponent());
 
 
                 //we set the bullets position as the player's position + the bullet spawn offset
@@ -118,9 +118,9 @@ public partial class InputResponseSpawnSystem : SystemBase
                 // adding to the players physics Velocity makes sure that it takes into account the already existing player velocity (so if shoot backwards while moving forwards it stays in place)
                 var vel = new PhysicsVelocity {Linear = (bulletVelocity * math.mul(rotation.Value, new float3(0,0,1)).xyz) + velocityComponent.Linear};
 
-                commandBuffer.SetComponent(nativeThreadIndex, bullet, newPosition);
-                commandBuffer.SetComponent(nativeThreadIndex, bullet, vel);
-                commandBuffer.SetComponent(nativeThreadIndex, bullet,
+                commandBuffer.SetComponent(entityInQueryIndex, bullet, newPosition);
+                commandBuffer.SetComponent(entityInQueryIndex, bullet, vel);
+                commandBuffer.SetComponent(entityInQueryIndex, bullet,
                     new GhostOwnerComponent {NetworkId = ghostOwner.NetworkId});
 
 
