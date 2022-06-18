@@ -6,23 +6,34 @@ using Unity.Entities;
 using Unity.NetCode;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using Unity.Collections;
 
 public class ClientServerConnectionHandler : MonoBehaviour
 {
-    //this is the store of server/client info
+    //This is the store of server/client info
     public ClientServerInfo ClientServerInfo;
 
-    // these are the launch objects from Navigation scene that tells what to set up
+    //These are the launch objects from Navigation scene that tells what to set up
     private GameObject[] launchObjects;
 
-    //these will gets access to the UI views 
+    //These will gets access to the UI views 
     public UIDocument m_GameUIDocument;
     private VisualElement m_GameManagerUIVE;
 
+    //We will use these variables for hitting Quit Game on client or if server disconnects
+    private ClientSimulationSystemGroup m_ClientSimulationSystemGroup;
+    private World m_ClientWorld;
+    private EntityQuery m_ClientNetworkIdComponentQuery;
+    private EntityQuery m_ClientDisconnectedNCEQuery;
+
+    //We will use these variables for hitting Quit Game on server
+    private World m_ServerWorld;
+    private EntityQuery m_ServerNetworkIdComponentQuery;
+
     void OnEnable()
     {
-        // This will put callback on "Quit Game" button
-        // This triggers the clean up function (ClickedQuitGame)
+        //This will put callback on "Quit Game" button
+        //This triggers the clean up function (ClickedQuitGame)
         m_GameManagerUIVE = m_GameUIDocument.rootVisualElement;
         m_GameManagerUIVE.Q("quit-game")?.RegisterCallback<ClickEvent>(ev => ClickedQuitGame());
     }
@@ -33,15 +44,19 @@ public class ClientServerConnectionHandler : MonoBehaviour
         foreach(GameObject launchObject in launchObjects)
         {
             ///  
-            // checks for server launch object
-            // does set up for the server for listening to connections and player scores
-            //
+            //Checks for server launch object
+            //If it exists it creates ServerDataComponent InitializeServerComponent and
+            //passes through server data to ClientServerInfo
+            // 
             if(launchObject.GetComponent<ServerLaunchObjectData>() != null)
             {
-                //sets the gameobject server data (mono)
+                //This sets the gameobject server data  in ClientServerInfo (mono)
                 ClientServerInfo.IsServer = true;
-                
-                //sets the component server data in server world(dots)
+                ClientServerInfo.GameName = launchObject.GetComponent<ServerLaunchObjectData>().GameName;
+                ClientServerInfo.BroadcastIpAddress = launchObject.GetComponent<ServerLaunchObjectData>().BroadcastIpAddress;
+                ClientServerInfo.BroadcastPort = launchObject.GetComponent<ServerLaunchObjectData>().BroadcastPort;
+
+                //This sets the component server data in server world(dots)
                 //ClientServerConnectionControl (server) will run in server world
                 //it will pick up this component and use it to listen on the port
                 foreach (var world in World.All)
@@ -53,42 +68,58 @@ public class ClientServerConnectionHandler : MonoBehaviour
                         var ServerDataEntity = world.EntityManager.CreateEntity();
                         world.EntityManager.AddComponentData(ServerDataEntity, new ServerDataComponent
                         {
+                            GameName = ClientServerInfo.GameName,
                             GamePort = ClientServerInfo.GamePort
                         });
-                        //create component that allows server initialization to run
+                        //Create component that allows server initialization to run
                         world.EntityManager.CreateEntity(typeof(InitializeServerComponent));
+
+                        //For handling server disconnecting by hitting the quit button
+                        m_ServerWorld = world;
+                        m_ServerNetworkIdComponentQuery = world.EntityManager.CreateEntityQuery(ComponentType.ReadOnly<NetworkIdComponent>());
+
                     }
                 }
             }
 
             // 
-            // checks for client launch object
-            //  does set up for client for dots and mono
+            //Checks for client launch object
+            //If it exists it creates ClientDataComponent, InitializeServerComponent and
+            // passes through client data to ClientServerInfo
             // 
             if(launchObject.GetComponent<ClientLaunchObjectData>() != null)
             {
-                //sets the gameobject data in ClientServerInfo (mono)
-                //sets the gameobject data in ClientServerInfo (mono)
+                //This sets the gameobject data in ClientServerInfo (mono)
                 ClientServerInfo.IsClient = true;
                 ClientServerInfo.ConnectToServerIp = launchObject.GetComponent<ClientLaunchObjectData>().IPAddress;                
+                ClientServerInfo.PlayerName = launchObject.GetComponent<ClientLaunchObjectData>().PlayerName;
 
-                //sets the component client data in server world(dots)
+                //This sets the component client data in server world (dots)
                 //ClientServerConnectionControl (client) will run in client world
                 //it will pick up this component and use it connect to IP and port
                 foreach (var world in World.All)
                 {
-                    //we cycle through all the worlds, and if the world has ClientSimulationSystemGroup
+                    //We cycle through all the worlds, and if the world has ClientSimulationSystemGroup
                     //we move forward (because that is the client world)
                     if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
                     {
                         var ClientDataEntity = world.EntityManager.CreateEntity();
                         world.EntityManager.AddComponentData(ClientDataEntity, new ClientDataComponent
                         {
+                            PlayerName = ClientServerInfo.PlayerName,
                             ConnectToServerIp = ClientServerInfo.ConnectToServerIp,
                             GamePort = ClientServerInfo.GamePort
                         });
-                        //create component that allows client initialization to run
+                        //Create component that allows client initialization to run
                         world.EntityManager.CreateEntity(typeof(InitializeClientComponent));
+
+                        //We will now set the variables we need to clean up during QuitGame()
+                        m_ClientWorld = world;
+                        m_ClientSimulationSystemGroup = world.GetExistingSystem<ClientSimulationSystemGroup>();
+                        m_ClientNetworkIdComponentQuery = world.EntityManager.CreateEntityQuery(ComponentType.ReadOnly<NetworkIdComponent>());
+                        //This variable is used to check if the server disconnected
+                        m_ClientDisconnectedNCEQuery = world.EntityManager.CreateEntityQuery(ComponentType.ReadWrite<NetworkStreamDisconnected>());
+
                     }
                 }
             }
@@ -104,11 +135,39 @@ public class ClientServerConnectionHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //The client checks if the NCE has a NetworkStreamDisconnected component
+        //If it does we act like they quit the game manually
+        if(m_ClientDisconnectedNCEQuery.IsEmptyIgnoreFilter)
+            return;
+        else
+            ClickedQuitGame();
     }
-   //This function will navigate us to NavigationScene
+
+   //This function will navigate us to NavigationScene and connected with the clients/server about leaving
     void ClickedQuitGame()
     {
+        //As a client if we were able to create an NCE we must add a request disconnect
+        if (!m_ClientNetworkIdComponentQuery.IsEmptyIgnoreFilter)
+        {
+            var clientNCE = m_ClientSimulationSystemGroup.GetSingletonEntity<NetworkIdComponent>();
+            m_ClientWorld.EntityManager.AddComponentData(clientNCE, new NetworkStreamRequestDisconnect());
+
+        }
+
+        //As a server if we were able to create an NCE we must add a request disconnect to all NCEs
+        //We must to see if this was a host build
+        if (m_ServerWorld != null)
+        {
+            //First we grab the array of NCEs
+            var nceArray = m_ServerNetworkIdComponentQuery.ToEntityArray(Allocator.TempJob);
+            for (int i = 0; i < nceArray.Length; i++)
+            {
+                //Then we add our NetworkStreamDisconnect component to tell the clients we are leaving
+                m_ServerWorld.EntityManager.AddComponentData(nceArray[i], new NetworkStreamRequestDisconnect());
+            }
+            //Then we dispose of our array
+            nceArray.Dispose();
+        }
 
 #if UNITY_EDITOR
         if(Application.isPlaying)
@@ -125,6 +184,11 @@ public class ClientServerConnectionHandler : MonoBehaviour
     //This way we can move back and forth between scenes and "start from scratch" each time
     void OnDestroy()
     {
+        for (var i = 0; i < launchObjects.Length; i++)
+        {
+            Destroy(launchObjects[i]);
+        }
+
         //This query deletes all entities
         World.DefaultGameObjectInjectionWorld.EntityManager.DestroyEntity(World.DefaultGameObjectInjectionWorld.EntityManager.UniversalQuery);
         //This query deletes all worlds

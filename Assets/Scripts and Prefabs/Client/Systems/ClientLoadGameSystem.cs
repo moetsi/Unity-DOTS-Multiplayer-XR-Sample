@@ -18,6 +18,7 @@ public partial class ClientLoadGameSystem : SystemBase
         RequireForUpdate(GetEntityQuery(ComponentType.ReadOnly<SendClientGameRpc>(), ComponentType.ReadOnly<ReceiveRpcCommandRequestComponent>()));   
         //This is just here to make sure the Sub Scene is streamed in before the client sets up the level data
         RequireSingletonForUpdate<GameSettingsComponent>();
+        RequireSingletonForUpdate<ClientDataComponent>();
     }
 
     protected override void OnUpdate()
@@ -49,7 +50,19 @@ public partial class ClientLoadGameSystem : SystemBase
                 bulletVelocity = request.bulletVelocity
             };
 
-            //These update the NCE with NetworkStreamInGame (required to start receiving snapshots)
+
+            //Here we create a new singleton entity for GameNameComponent
+            //We could add this component to the singleton entity that has the GameSettingsComponent
+            //but we will keep them separate in case we want to change workflows in the future and don't
+            //want these components to be dependent on the same entity
+            var gameNameEntity= commandBuffer.CreateEntity();
+            commandBuffer.AddComponent(gameNameEntity, new GameNameComponent {
+                GameName = request.gameName
+            });
+
+            //These update the NCE with NetworkStreamInGame (required to start receiving snapshots) and
+            //PlayerSpawningStateComponent, which we will use when we spawn players
+            commandBuffer.AddComponent(requestSource.SourceConnection, new PlayerSpawningStateComponent());
             commandBuffer.AddComponent(requestSource.SourceConnection, default(NetworkStreamInGame));
             
             //This tells the server "I loaded the level"
@@ -60,7 +73,6 @@ public partial class ClientLoadGameSystem : SystemBase
             commandBuffer.AddComponent(levelReq, new SendServerGameLoadedRpc());
             commandBuffer.AddComponent(levelReq, new SendRpcCommandRequestComponent {TargetConnection = requestSource.SourceConnection});
 
-            Debug.Log("Client loaded game");
         }).Schedule();
 
         m_BeginSimEcb.AddJobHandleForProducer(Dependency);

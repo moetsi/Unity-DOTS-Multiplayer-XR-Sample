@@ -14,4 +14,5 @@ public struct SendClientGameRpc : IRpcCommand
     public int levelDepth;
     public float playerForce;
     public float bulletVelocity;
+    public FixedString64Bytes gameName;
 }

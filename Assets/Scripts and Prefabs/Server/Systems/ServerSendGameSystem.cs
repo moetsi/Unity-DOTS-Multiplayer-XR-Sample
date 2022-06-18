@@ -22,6 +22,7 @@ public partial class ServerSendGameSystem : SystemBase
     {
         m_Barrier = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
         RequireSingletonForUpdate<GameSettingsComponent>();
+        RequireSingletonForUpdate<ServerDataComponent>();
     }
 
     protected override void OnUpdate()
@@ -29,6 +30,7 @@ public partial class ServerSendGameSystem : SystemBase
         var commandBuffer = m_Barrier.CreateCommandBuffer();
 
         var serverData = GetSingleton<GameSettingsComponent>();
+        var gameNameData = GetSingleton<ServerDataComponent>();
 
         Entities
         .WithNone<SentClientGameRpcTag>()
@@ -43,6 +45,7 @@ public partial class ServerSendGameSystem : SystemBase
                 levelDepth = serverData.levelDepth,
                 playerForce = serverData.playerForce,
                 bulletVelocity = serverData.bulletVelocity,
+                gameName = gameNameData.GameName
             });
 
             commandBuffer.AddComponent(req, new SendRpcCommandRequestComponent {TargetConnection = entity});

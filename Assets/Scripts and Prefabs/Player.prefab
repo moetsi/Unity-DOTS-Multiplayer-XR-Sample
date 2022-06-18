@@ -424,7 +424,7 @@ MonoBehaviour:
   SupportedGhostModes: 3
   OptimizationMode: 0
   Importance: 90
-  prefabId: 
+  prefabId: 238def06460ba36408eb7b32bfd46da1
   Name: Player
   HasOwner: 1
   SupportAutoCommandTarget: 1
