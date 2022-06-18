@@ -1,0 +1,99 @@
+.quit-game-button:hover {
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+}
+
+.quit-game-button:active {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+.quit-game-button {
+    flex-direction: column-reverse;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 10px;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 68px;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+    white-space: normal;
+    max-width: 140px;
+    width: 100%;
+}
+
+.game-ui-screen {
+    background-color: rgba(0, 0, 0, 0);
+    justify-content: space-between;
+    color: rgb(255, 255, 255);
+}
+
+.game-ui-header {
+    height: auto;
+}
+
+.top-right-container {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.top-right-values {
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-right;
+    font-size: 18px;
+}
+
+.top-right-labels {
+    -unity-text-align: upper-right;
+    color: rgb(255, 255, 255);
+    font-size: 10px;
+}
+
+.spacers {
+    height: 3px;
+}
+
+.footer {
+    bottom: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    flex-grow: 1;
+    width: 100%;
+    height: auto;
+    padding-bottom: 10px;
+}
+
+.bottom-left {
+    flex-direction: column-reverse;
+    margin-left: 10px;
+}
+
+.instruction-text {
+    color: rgb(255, 255, 255);
+    white-space: normal;
+    font-size: 14px;
+}

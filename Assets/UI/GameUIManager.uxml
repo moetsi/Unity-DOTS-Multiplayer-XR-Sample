@@ -1,0 +1,39 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="TitleScreenUI.uss" />
+    <Style src="GameUI.uss" />
+    <GameUIManager name="GameUIManager" style="width: 100%; height: 100%;">
+        <ui:VisualElement name="screen" class="screen game-ui-screen">
+            <ui:VisualElement name="header" class="header game-ui-header">
+                <ui:Button text="Quit Game" name="quit-game" class="quit-game-button" />
+                <ui:VisualElement name="top-right-container" class="top-right-container">
+                    <ui:Label text="Frank&apos;s Game" name="game-name" class="top-right-values" />
+                    <ui:Label text="GAME NAME" name="game-name-label" class="top-right-labels" />
+                    <ui:VisualElement name="spacer" class="spacers" />
+                    <ui:Label text="127.0.0.1" name="game-ip" class="top-right-values" />
+                    <ui:Label text="IP ADDRESS" name="ip-address-label" class="top-right-labels" />
+                    <ui:VisualElement name="spacer" class="spacers" />
+                    <ui:Label name="highest-score" class="top-right-values" />
+                    <ui:Label text="HIGHEST SCORE" name="highest-score-label" class="top-right-labels" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="footer" class="footer">
+                <ui:VisualElement name="bottom-left" class="bottom-left">
+                    <ui:Label text="Use &quot;p&quot; key to self-destruct" name="instructions-1" class="instruction-text" />
+                    <ui:Label text="Use space bar to fire missles" name="instructions-2" class="instruction-text" />
+                    <ui:Label text="Right-click and move mouse to rotate" name="instructions-3" class="instruction-text" />
+                    <ui:Label text="Use WASD keys to thrust" name="instructions-4" class="instruction-text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="bottom-right" style="margin-right: 10px;">
+                    <ui:Label text="Jonathan" name="player-name" class="top-right-values" />
+                    <ui:Label text="PLAYER NAME" name="game-name-label" class="top-right-labels" />
+                    <ui:VisualElement name="spacer" class="spacers" />
+                    <ui:Label text="0" name="current-score" class="top-right-values" />
+                    <ui:Label text="CURRENT SCORE" name="current-score-label" class="top-right-labels" />
+                    <ui:VisualElement name="spacer" class="spacers" />
+                    <ui:Label text="0" name="high-score" class="top-right-values" />
+                    <ui:Label text="HIGH SCORE" name="current-score-label" class="top-right-labels" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </GameUIManager>
+</ui:UXML>
