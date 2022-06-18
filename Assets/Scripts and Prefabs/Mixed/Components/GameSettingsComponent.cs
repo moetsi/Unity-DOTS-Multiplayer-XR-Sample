@@ -9,4 +9,5 @@ public struct GameSettingsComponent : IComponentData
     public int levelWidth;
     public int levelHeight;
     public int levelDepth;
+    public float relevancyRadius;
 }

@@ -38,7 +38,6 @@ public struct SendServerGameLoadedRpc : IComponentData, IRpcCommandSerializer<Se
 
         //We add a log that we will remove later to show that this RPC has been executed
         //iOS will crash if Debug.Log is used within an RPC so we will remove this in the ARFoundation section
-        Debug.Log("Server acted on confirmed game load");
     }
 
     //Necessary boilerplate

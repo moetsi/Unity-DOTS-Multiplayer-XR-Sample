@@ -33,6 +33,5 @@ public class GameUIManager : VisualElement
 
     void  ClickedButton() {
 
-        Debug.Log("Clicked quit game");
     }  
 }

@@ -274,6 +274,7 @@ MonoBehaviour:
   levelWidth: 40
   levelHeight: 40
   levelDepth: 40
+  relevencyRadius: 0
 --- !u!114 &1893497768
 MonoBehaviour:
   m_ObjectHideFlags: 0
