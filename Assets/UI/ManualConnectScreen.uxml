@@ -1,6 +1,25 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="TitleScreenUI.uss" />
-    <ManualConnectScreen name="ManualConnectScreen" class="screen" style="background-color: rgba(255, 0, 216, 255);">
-        <ui:Button text="Back" display-tooltip-when-elided="true" name="back-button" />
-    </ManualConnectScreen>
+    <ui:ScrollView class="screen-scroll-container">
+        <ManualConnectScreen name="ManualConnectScreen" class="screen ManualConnectScreen">
+            <ui:VisualElement name="header" class="header">
+                <ui:Button text="Back Button" display-tooltip-when-elided="True" name="back-button" class="quit-button main-menu-button" />
+            </ui:VisualElement>
+            <ui:VisualElement name="main-content" class="main-content">
+                <ui:Label text="3D XR Asteroids" display-tooltip-when-elided="True" name="title" class="title" />
+                <ui:VisualElement name="section-title-container" class="section-title-container">
+                    <ui:Label text="Manually Connect" display-tooltip-when-elided="True" name="section-title" class="section-title" />
+                </ui:VisualElement>
+                <ui:VisualElement name="game-ip-container" class="data-section">
+                    <ui:TextField picking-mode="Ignore" value="HostIPValue" text="127.0.0.1" name="game-ip" readonly="false" class="data-section-input" style="background-color: rgb(255, 255, 255);" />
+                    <ui:Label text="Game&apos;s IP Address" display-tooltip-when-elided="True" name="game-ip-label" class="data-section-label" />
+                </ui:VisualElement>
+                <ui:VisualElement name="player-name-container" class="data-section">
+                    <ui:TextField picking-mode="Ignore" value="PlayerNameValue" text="PlayerName" name="player-name" readonly="false" class="data-section-input" style="border-left-color: rgb(150, 191, 208); border-right-color: rgb(150, 191, 208); border-top-color: rgb(150, 191, 208); border-bottom-color: rgb(150, 191, 208);" />
+                    <ui:Label text="Your Player Name" display-tooltip-when-elided="True" name="player-name-label" class="data-section-label" style="color: rgb(150, 191, 208);" />
+                </ui:VisualElement>
+                <ui:Button text="Join Game" display-tooltip-when-elided="True" name="launch-connect-game" class="blue-button" style="height: 120px;" />
+            </ui:VisualElement>
+        </ManualConnectScreen>
+    </ui:ScrollView>
 </ui:UXML>

@@ -1,8 +1,23 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="TitleScreenUI.uss" />
-    <ui:VisualElement name="screen" class="screen" style="background-color: rgba(0, 0, 255, 255);">
-        <ui:Button text="Host game" display-tooltip-when-elided="true" name="host-local-button" />
-        <ui:Button text="Join game" display-tooltip-when-elided="true" name="join-local-button" />
-        <ui:Button text="Manually connect" display-tooltip-when-elided="true" name="manual-connect-button" />
-    </ui:VisualElement>
+    <ui:ScrollView class="screen-scroll-container">
+        <ui:VisualElement name="screen" class="screen HostGameScreen">
+            <ui:VisualElement name="header" class="header">
+                <ui:IMGUIContainer name="moetsi-logo" class="logo" />
+                <ui:Button text="Quit" name="quit-button" class="quit-button" />
+            </ui:VisualElement>
+            <ui:VisualElement name="main-content" class="main-content">
+                <ui:Label text="3D XR Asteroids" name="title" class="title" />
+                <ui:VisualElement name="join-local-title" class="section-title-container">
+                    <ui:Label text="Join A Local Game" name="join-a-local-game" class="section-title" />
+                </ui:VisualElement>
+                <ui:VisualElement name="local-games-list-container" class="local-games-list-container">
+                    <ui:ListView name="local-games-list" item-height="100" class="local-games-list" />
+                </ui:VisualElement>
+                <ui:Button text="Connect to a Local Game" name="manual-connect" class="button blue-button" />
+                <ui:Label text="Or" name="or" class="or" />
+                <ui:Button text="Host A Local Game" name="host-local-game" class="button green-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:ScrollView>
 </ui:UXML>
