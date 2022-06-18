@@ -15,12 +15,24 @@ public class ClientServerConnectionHandler : MonoBehaviour
     // these are the launch objects from Navigation scene that tells what to set up
     private GameObject[] launchObjects;
 
+    //these will gets access to the UI views 
+    public UIDocument m_GameUIDocument;
+    private VisualElement m_GameManagerUIVE;
+
+    void OnEnable()
+    {
+        // This will put callback on "Quit Game" button
+        // This triggers the clean up function (ClickedQuitGame)
+        m_GameManagerUIVE = m_GameUIDocument.rootVisualElement;
+        m_GameManagerUIVE.Q("quit-game")?.RegisterCallback<ClickEvent>(ev => ClickedQuitGame());
+    }
+
     void Awake()
     {
         launchObjects = GameObject.FindGameObjectsWithTag("LaunchObject");
         foreach(GameObject launchObject in launchObjects)
         {
-            //  
+            ///  
             // checks for server launch object
             // does set up for the server for listening to connections and player scores
             //
@@ -93,5 +105,34 @@ public class ClientServerConnectionHandler : MonoBehaviour
     void Update()
     {
         
+    }
+   //This function will navigate us to NavigationScene
+    void ClickedQuitGame()
+    {
+
+#if UNITY_EDITOR
+        if(Application.isPlaying)
+#endif
+            SceneManager.LoadSceneAsync("NavigationScene");
+#if UNITY_EDITOR
+        else
+            Debug.Log("Loading: " + "NavigationScene");
+#endif
+    }
+
+    //When the OnDestroy method is called (because of our transition to NavigationScene) we
+    //must delete all our entities and our created worlds to go back to a blank state
+    //This way we can move back and forth between scenes and "start from scratch" each time
+    void OnDestroy()
+    {
+        //This query deletes all entities
+        World.DefaultGameObjectInjectionWorld.EntityManager.DestroyEntity(World.DefaultGameObjectInjectionWorld.EntityManager.UniversalQuery);
+        //This query deletes all worlds
+        World.DisposeAllWorlds();
+
+        //We return to our initial world that we started with, defaultWorld
+        var bootstrap = new NetCodeBootstrap();
+        bootstrap.Initialize("defaultWorld"); 
+
     }
 }

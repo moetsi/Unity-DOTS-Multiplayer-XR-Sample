@@ -533,6 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClientServerInfo: {fileID: 484491921}
+  m_GameUIDocument: {fileID: 1875730655}
 --- !u!1 &1150218083
 GameObject:
   m_ObjectHideFlags: 0
