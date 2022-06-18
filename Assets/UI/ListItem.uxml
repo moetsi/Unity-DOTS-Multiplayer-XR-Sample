@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="TitleScreenUI.uss" />
+    <ui:VisualElement name="row" focusable="false" class="row">
+        <ui:VisualElement name="game-name-data" class="game-name-data">
+            <ui:Label text="Mary&apos;s Game" name="game-name" class="list-item-game-name" />
+            <ui:Label text="Game Name" name="game-name-label" class="list-item-game-name-label" />
+        </ui:VisualElement>
+        <ui:Button text="Join" display-tooltip-when-elided="True" name="join-local-game" class="blue-button list-item-button" />
+    </ui:VisualElement>
+</ui:UXML>

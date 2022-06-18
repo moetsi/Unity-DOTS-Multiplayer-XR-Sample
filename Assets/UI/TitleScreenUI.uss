@@ -286,7 +286,7 @@
     max-width: 200px;
     height: 68px;
     margin-left: 10px;
-    background-image: url('/Assets/UI/Moetsi-logo-hq.png');
+    background-image: url('/Assets/UI/moetsi-logo-hq.png');
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -334,4 +334,49 @@
 
 .ManualConnectScreen {
     align-items: center;
+}
+
+.row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 74px;
+}
+
+.game-name-data {
+    margin-left: 17px;
+}
+
+.list-item-game-name {
+    margin-left: 0;
+    font-size: 24px;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: rgb(150, 191, 208);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.list-item-game-name-label {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 10px;
+}
+
+.list-item-button {
+    width: 141px;
+    height: 46px;
+    margin-left: 0;
+    margin-right: 12px;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
 }
