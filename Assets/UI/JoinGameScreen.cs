@@ -37,25 +37,20 @@ public class JoinGameScreen : VisualElement
         m_GameIp = this.Q<Label>("game-ip");
         m_PlayerName = this.Q<TextField>("player-name");
 
-        //  CLICKING CALLBACKS
-        this.Q("launch-join-game")?.RegisterCallback<ClickEvent>(ev => ClickedJoinGame());
-
-
+        //Grab the system name
+        m_HostName = Dns.GetHostName();
+        //Set the value equal to the host name to start
+        m_PlayerName.value = m_HostName;
 
         this.UnregisterCallback<GeometryChangedEvent>(OnGeometryChange);
     }
 
-    void ClickedJoinGame()
+    public void LoadJoinScreenForSelectedServer(ServerInfoObject localGame)
     {
-        Debug.Log("clicked join game");
-    }
 
-    public void LoadJoinScreenForSelectedServer(GameObject localGame)
-    {
         m_GameName = this.Q<Label>("game-name");
         m_GameIp = this.Q<Label>("game-ip");
-        m_GameName.text = localGame.name;
-        m_GameIp.text = localGame.name;
+        m_GameName.text = localGame.gameName;
+        m_GameIp.text = localGame.ipAddress;
     }
-
 }
